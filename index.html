@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>VERDADEIRO OU FALSO</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      padding: 30px;
+    }
+
+    .counters-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .question-counter {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+      flex: 1;
+    }
+
+    .error-counter {
+      background: #ff4f00;
+      color: black;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+      min-width: 120px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #667eea;
+      margin-bottom: 25px;
+      font-size: 32px;
+    }
+
+    .question-box {
+      background: #f8f9fa;
+      border: 2px solid #667eea;
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      min-height: 150px;
+    }
+
+    .question-text {
+      font-size: 20px;
+      line-height: 1.6;
+      color: #333;
+      margin-bottom: 0;
+    }
+
+    .buttons-container {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      flex: 1;
+      padding: 18px 25px;
+      font-size: 25px;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      min-height: 60px;
+    }
+
+    button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    button:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-true {
+      background: linear-gradient(135deg, #11998e, #38ef7d);
+      color: black;
+    }
+
+    .btn-false {
+      background: linear-gradient(135deg, #eb3349, #f45c43);
+      color: black;
+    }
+
+    .btn-continue {
+      background: #667eea;
+      color: white;
+      width: 100%;
+    }
+
+    .message-box {
+      background: #f8f9fa;
+      border: 3px solid;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+      font-size: 18px;
+      line-height: 1.6;
+      display: none;
+    }
+
+    .message-box.correct {
+      border-color: #38ef7d;
+      background: #e8f8f0;
+    }
+
+    .message-box.wrong {
+      border-color: #f45c43;
+      background: #ffe8e8;
+    }
+
+    .message-box.show {
+      display: block;
+    }
+
+    .reset-btn {
+      background: #764ba2;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 100%;
+      transition: all 0.3s;
+    }
+
+    .reset-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+
+      .counters-container {
+        flex-direction: column;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .question-text {
+        font-size: 18px;
+      }
+
+      button {
+        font-size: 18px;
+        padding: 15px 20px;
+      }
+
+      .buttons-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="counters-container">
+      <div class="question-counter" id="question-counter">
+        Item: 1/10
+      </div>
+      <div class="error-counter" id="error-counter">
+        ❌ Erros: 0/5
+      </div>
+    </div>
+
+    <h1>VERDADEIRO OU FALSO</h1>
+
+    <div class="question-box">
+      <p class="question-text" id="question-text">Carregando questão...</p>
+    </div>
+
+    <div class="message-box" id="message-box"></div>
+
+    <div class="buttons-container" id="answer-buttons">
+      <button class="btn-true" onclick="checkAnswer(true)">VERDADEIRO</button>
+      <button class="btn-false" onclick="checkAnswer(false)">FALSO</button>
+    </div>
+
+    <div id="continue-buttons" style="display: none;">
+      <button class="btn-continue" onclick="nextQuestion()">CONTINUAR</button>
+    </div>
+
+    <button class="reset-btn" onclick="resetQuiz()">🔄 REINICIAR</button>
+  </div>
+
+  <script>
+    const rawQuestionsText = `
+
+ITEM 1
+
+O fluxo sanguíneo das carótidas e vertebrais é laminar e a velocidade é uniforme em toda a secção transversal do vaso.
+
+GABARITO: FALSO
+
+EXPLICAÇÃO: No fluxo laminar das artérias carótidas e vertebrais, a velocidade é maior no centro do vaso, diminuindo progressivamente em direção às paredes devido ao atrito das hemácias no endotélio.
+
+ITEM 2
+
+A estenose carotídea pode ser classificada como leve quando há redução de 50-69% do diâmetro luminal.
+
+GABARITO: VERDADEIRO
+
+EXPLICAÇÃO: De acordo com os critérios NASCET, estenose leve corresponde a redução de 50-69% do diâmetro, moderada de 70-89%, e grave acima de 90%.
+
+`;
+
+    let questions = [];
+    let currentQuestionIndex = 0;
+    let currentQuestion = null;
+    let errorCount = 0;
+    const MAX_ERRORS = 5;
+    let lastAnswerWasWrong = false;
+
+    function parseQuestions(text) {
+      const items = [];
+      const itemPattern = /ITEM (\d+)/g;
+      const matches = [...text.matchAll(itemPattern)];
+      const itemBlocks = text.split(/ITEM \d+/).filter(block => block.trim());
+      
+      itemBlocks.forEach((block, index) => {
+        const lines = block.trim().split('\n').filter(line => line.trim());
+        if (lines.length < 3) return;
+        
+        let questionText = '';
+        let answer = null;
+        let explanation = '';
+        let isReadingExplanation = false;
+        
+        lines.forEach(line => {
+          line = line.trim();
+          
+          if (line.toUpperCase().startsWith('GABARITO:')) {
+            const answerText = line.split(':')[1].trim().toUpperCase();
+            answer = answerText === 'VERDADEIRO';
+            return;
+          }
+          
+          if (line.toUpperCase().startsWith('EXPLICAÇÃO:')) {
+            isReadingExplanation = true;
+            explanation = line.substring(line.indexOf(':') + 1).trim();
+            return;
+          }
+          
+          if (isReadingExplanation) {
+            explanation += (explanation ? ' ' : '') + line;
+            return;
+          }
+          
+          if (!line.toUpperCase().startsWith('ITEM') && answer === null) {
+            questionText += (questionText ? ' ' : '') + line;
+          }
+        });
+        
+        if (questionText && answer !== null) {
+          items.push({
+            text: questionText,
+            answer: answer,
+            explanation: explanation
+          });
+        }
+      });
+      
+      return items;
+    }
+
+    function saveProgress() {
+      localStorage.setItem('tfQuizProgress', JSON.stringify({
+        currentQuestionIndex: currentQuestionIndex,
+        errorCount: errorCount
+      }));
+    }
+
+    function loadProgress() {
+      const saved = localStorage.getItem('tfQuizProgress');
+      if (saved) {
+        const data = JSON.parse(saved);
+        currentQuestionIndex = data.currentQuestionIndex || 0;
+        errorCount = data.errorCount || 0;
+        return true;
+      }
+      return false;
+    }
+
+    function updateErrorCounter() {
+      document.getElementById('error-counter').textContent = `❌ Erros: ${errorCount}/${MAX_ERRORS}`;
+    }
+
+    function initQuiz() {
+      questions = parseQuestions(rawQuestionsText);
+      loadProgress();
+      
+      if (currentQuestionIndex >= questions.length) {
+        currentQuestionIndex = 0;
+      }
+      
+      updateErrorCounter();
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      if (currentQuestionIndex >= questions.length) {
+        currentQuestionIndex = 0;
+        saveProgress();
+      }
+      
+      currentQuestion = questions[currentQuestionIndex];
+      lastAnswerWasWrong = false;
+      
+      document.getElementById('question-text').textContent = currentQuestion.text;
+      document.getElementById('question-counter').textContent = 
+        `Item: ${currentQuestionIndex + 1}/${questions.length}`;
+      
+      document.getElementById('message-box').classList.remove('show');
+      document.getElementById('answer-buttons').style.display = 'flex';
+      document.getElementById('continue-buttons').style.display = 'none';
+      
+      const buttons = document.querySelectorAll('#answer-buttons button');
+      buttons.forEach(btn => btn.disabled = false);
+    }
+
+    function checkAnswer(userAnswer) {
+      const buttons = document.querySelectorAll('#answer-buttons button');
+      buttons.forEach(btn => btn.disabled = true);
+      
+      const messageBox = document.getElementById('message-box');
+      const isCorrect = userAnswer === currentQuestion.answer;
+      const correctText = currentQuestion.answer ? 'VERDADEIRO' : 'FALSO';
+      
+      messageBox.classList.remove('correct', 'wrong');
+      messageBox.classList.add(isCorrect ? 'correct' : 'wrong');
+      
+      let messageHTML = '';
+      
+      if (isCorrect) {
+        messageHTML = `✅ <strong>CORRETO!</strong><br><br>`;
+        lastAnswerWasWrong = false;
+      } else {
+        errorCount++;
+        lastAnswerWasWrong = true;
+        updateErrorCounter();
+        saveProgress();
+        messageHTML = `❌ <strong>ERRADO!</strong><br><br>`;
+      }
+      
+      messageHTML += `<strong>Gabarito:</strong> ${correctText}`;
+      
+      if (currentQuestion.explanation && currentQuestion.explanation.trim() !== '') {
+        messageHTML += `<br><br><strong>Explicação:</strong> ${currentQuestion.explanation}`;
+      }
+      
+      messageBox.innerHTML = messageHTML;
+      messageBox.classList.add('show');
+      
+      document.getElementById('answer-buttons').style.display = 'none';
+      document.getElementById('continue-buttons').style.display = 'block';
+    }
+
+    function nextQuestion() {
+      // Verifica se atingiu o limite de erros
+      if (errorCount >= MAX_ERRORS) {
+        alert(`❌ Você atingiu ${MAX_ERRORS} erros!\n\nO quiz será reiniciado.`);
+        currentQuestionIndex = 0;
+        errorCount = 0;
+        updateErrorCounter();
+        saveProgress();
+        loadQuestion();
+        return;
+      }
+      
+      currentQuestionIndex++;
+      saveProgress();
+      
+      if (currentQuestionIndex >= questions.length) {
+        alert(`🎉 Parabéns! Você completou todos os ${questions.length} itens!\n\nTotal de erros: ${errorCount}\n\nO jogo será reiniciado para você tentar novamente.`);
+        currentQuestionIndex = 0;
+        errorCount = 0;
+        updateErrorCounter();
+        saveProgress();
+      }
+      
+      loadQuestion();
+    }
+
+    function resetQuiz() {
+      if (confirm('Tem certeza que deseja reiniciar o quiz?')) {
+        currentQuestionIndex = 0;
+        errorCount = 0;
+        updateErrorCounter();
+        saveProgress();
+        initQuiz();
+      }
+    }
+
+    // Inicializa o quiz quando a página carrega
+    window.addEventListener('DOMContentLoaded', initQuiz);
+  </script>
+</body>
+</html>
