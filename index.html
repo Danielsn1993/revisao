@@ -637,11 +637,11 @@ EXPLICAÇÃO: A carotidinia possui mínimo ou nenhum estreitamento luminal devid
 
 ITEM 51
 
-As arterites de células gigantes, conhecidas como arterite de Takayasu, também é uma condição causada por alteração inflamatória vascular. Porém, dependendo do grau de espessamento concêntrico da parede vascular que essas arterites pode causar, o paciente poderá ter como consequência repercussões hemodinâmicas.
+As arterites de células gigantes, conhecidas como arterite de Takayasu, também é uma condição causada por alteração inflamatória vascular. Porém, dependendo do grau de espessamento concêntrico da parede vascular que essas arterites podem causar, o paciente poderá ter como consequência repercussões hemodinâmicas.
 
 GABARITO: VERDADEIRO
 
-EXPLICAÇÃO: As arterites de células gigantes, conhecidas como arterite de Takayasu, também é uma condição causada por alteração inflamatória vascular. Porém, dependendo do grau de espessamento concêntrico da parede vascular que essas arterites pode causar, o paciente poderá ter como consequência repercussões hemodinâmicas.
+EXPLICAÇÃO: As arterites de células gigantes, conhecidas como arterite de Takayasu, também é uma condição causada por alteração inflamatória vascular. Porém, dependendo do grau de espessamento concêntrico da parede vascular que essas arterites podem causar, o paciente poderá ter como consequência repercussões hemodinâmicas.
 
 ITEM 52
 
@@ -1071,8 +1071,8 @@ EXPLICAÇÃO: A velocidade de pico sistólica da aorta abdominal normal varia en
     function nextQuestion() {
       // Verifica se atingiu o limite de erros
       if (errorCount >= MAX_ERRORS) {
-        alert(`❌ Você atingiu ${MAX_ERRORS} erros!\n\nO quiz será reiniciado.`);
-        currentQuestionIndex = 0;
+        alert(`❌ Você atingiu ${MAX_ERRORS} erros!\n\nVoltaremos 25 itens para você tentar novamente.`);
+        currentQuestionIndex = Math.max(0, currentQuestionIndex - 25);
         errorCount = 0;
         updateErrorCounter();
         saveProgress();
@@ -1095,7 +1095,7 @@ EXPLICAÇÃO: A velocidade de pico sistólica da aorta abdominal normal varia en
     }
 
     function resetQuiz() {
-      if (confirm('Tem certeza que deseja reiniciar o quiz?')) {
+      if (confirm('Tem certeza que deseja reiniciar?')) {
         currentQuestionIndex = 0;
         errorCount = 0;
         updateErrorCounter();
