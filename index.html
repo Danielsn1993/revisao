@@ -1135,7 +1135,7 @@ ITEM 113
 
 De modo geral, a morfologia do aneurisma micótico é do tipo sacular (> 90% dos casos). Além disso, a presença de líquido e gás perianeurismático são achados que favorecem o seu diagnóstico.
 
-GABARITO: VERDADEIRO.
+GABARITO: VERDADEIRO
 
 EXPLICAÇÃO: De modo geral, a morfologia do aneurisma micótico é do tipo sacular (> 90% dos casos). Além disso, a presença de líquido e gás perianeurismático são achados que favorecem o seu diagnóstico.
 
@@ -1155,6 +1155,7 @@ EXPLICAÇÃO: Nas artérias periféricas, o aneurisma micótico costuma ser form
     let errorCount = 0;
     const MAX_ERRORS = 5;
     let lastAnswerWasWrong = false;
+    let hasPendingError = false;
 
     function parseQuestions(text) {
       const items = [];
@@ -1250,6 +1251,7 @@ EXPLICAÇÃO: Nas artérias periféricas, o aneurisma micótico costuma ser form
       
       currentQuestion = questions[currentQuestionIndex];
       lastAnswerWasWrong = false;
+      hasPendingError = false;
       
       document.getElementById('question-text').textContent = currentQuestion.text;
       document.getElementById('question-counter').textContent = 
@@ -1280,10 +1282,8 @@ EXPLICAÇÃO: Nas artérias periféricas, o aneurisma micótico costuma ser form
         messageHTML = `✅ <strong>CORRETO!</strong><br><br>`;
         lastAnswerWasWrong = false;
       } else {
-        errorCount++;
         lastAnswerWasWrong = true;
-        updateErrorCounter();
-        saveProgress();
+        hasPendingError = true;
         messageHTML = `❌ <strong>ERRADO!</strong><br><br>`;
       }
       
@@ -1301,6 +1301,14 @@ EXPLICAÇÃO: Nas artérias periféricas, o aneurisma micótico costuma ser form
     }
 
     function nextQuestion() {
+      // Contabiliza o erro pendente antes de avançar
+      if (hasPendingError) {
+        errorCount++;
+        updateErrorCounter();
+        saveProgress();
+        hasPendingError = false;
+      }
+      
       // Verifica se atingiu o limite de erros
       if (errorCount >= MAX_ERRORS) {
         alert(`❌ Você atingiu ${MAX_ERRORS} erros!\n\nVoltaremos 25 itens para você tentar novamente.`);
