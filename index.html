@@ -105,6 +105,10 @@
       font-size: 28px;
     }
 
+    .medal-emoji {
+      font-size: 42px;
+    }
+
     .trophy-container {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
@@ -114,14 +118,17 @@
       font-weight: bold;
       min-width: 100px;
       display: flex;
-      flex-direction: column;
       justify-content: center;
-      font-size: 36px;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .trophy-emoji {
+      font-size: 42px;
     }
 
     .trophy-count {
       font-size: 28px;
-      margin-top: 5px;
     }
 
     h1 {
@@ -322,7 +329,19 @@
       }
 
       .medals-container {
-        flex-direction: column;
+        flex-wrap: wrap;
+      }
+
+      .daily-progress {
+        flex: 1 1 100%;
+      }
+
+      .medals-stats {
+        flex: 1 1 calc(50% - 5px);
+      }
+
+      .trophy-container {
+        flex: 1 1 calc(50% - 5px);
       }
 
       h1 {
@@ -348,17 +367,17 @@
   <div class="container">
     <div class="medals-container">
       <div class="daily-progress">
-        <div class="daily-progress-title">ITENS HOJE</div>
+        <div class="daily-progress-title">ITENS FEITOS HOJE</div>
         <div class="daily-progress-count" id="daily-items">0/50</div>
       </div>
       <div class="medals-stats">
         <div class="medals-row">
-          <span>🥇 <span id="monthly-medals">0</span></span>
+          <span class="medal-emoji">🥇</span> <span id="monthly-medals">0</span>
         </div>
       </div>
       <div class="trophy-container">
-        <div>🏆</div>
-        <div class="trophy-count" id="total-trophies">0</div>
+        <span class="trophy-emoji">🏆</span>
+        <span class="trophy-count" id="total-trophies">0</span>
       </div>
     </div>
 
@@ -403,7 +422,6 @@
   <script>
     const rawQuestionsText = `
 
-ITEM 1
 ITEM 1
 
 O fluxo sanguíneo das carótidas e vertebrais é laminar e a velocidade é uniforme em toda a secção transversal do vaso.
