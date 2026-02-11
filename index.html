@@ -57,6 +57,73 @@
       min-width: 120px;
     }
 
+    .medals-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      align-items: stretch;
+    }
+
+    .daily-progress {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      padding: 15px 20px;
+      border-radius: 15px;
+      text-align: center;
+      font-weight: bold;
+      flex: 1;
+    }
+
+    .daily-progress-title {
+      font-size: 14px;
+      margin-bottom: 5px;
+      opacity: 0.9;
+    }
+
+    .daily-progress-count {
+      font-size: 24px;
+    }
+
+    .medals-stats {
+      background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+      color: white;
+      padding: 15px 20px;
+      border-radius: 15px;
+      text-align: center;
+      font-weight: bold;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .medals-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      font-size: 28px;
+    }
+
+    .trophy-container {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 15px 20px;
+      border-radius: 15px;
+      text-align: center;
+      font-weight: bold;
+      min-width: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 36px;
+    }
+
+    .trophy-count {
+      font-size: 28px;
+      margin-top: 5px;
+    }
+
     h1 {
       text-align: center;
       color: #667eea;
@@ -173,12 +240,88 @@
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     }
 
+    .celebration-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .celebration-modal.show {
+      display: flex;
+    }
+
+    .celebration-content {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 500px;
+      animation: bounceIn 0.6s;
+    }
+
+    .celebration-icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+
+    .celebration-title {
+      font-size: 32px;
+      color: #667eea;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    .celebration-text {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 25px;
+    }
+
+    .celebration-close {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0.3);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
     @media (max-width: 600px) {
       .container {
         padding: 20px;
       }
 
       .counters-container {
+        flex-direction: column;
+      }
+
+      .medals-container {
         flex-direction: column;
       }
 
@@ -203,6 +346,22 @@
 </head>
 <body>
   <div class="container">
+    <div class="medals-container">
+      <div class="daily-progress">
+        <div class="daily-progress-title">ITENS HOJE</div>
+        <div class="daily-progress-count" id="daily-items">0/50</div>
+      </div>
+      <div class="medals-stats">
+        <div class="medals-row">
+          <span>🥇 <span id="monthly-medals">0</span></span>
+        </div>
+      </div>
+      <div class="trophy-container">
+        <div>🏆</div>
+        <div class="trophy-count" id="total-trophies">0</div>
+      </div>
+    </div>
+
     <div class="counters-container">
       <div class="question-counter" id="question-counter">
         Item: 1/10
@@ -232,9 +391,19 @@
     <button class="reset-btn" onclick="resetQuiz()">🔄 REINICIAR</button>
   </div>
 
+  <div class="celebration-modal" id="celebration-modal">
+    <div class="celebration-content">
+      <div class="celebration-icon" id="celebration-icon">🎉</div>
+      <div class="celebration-title" id="celebration-title">Parabéns!</div>
+      <div class="celebration-text" id="celebration-text">Você conquistou algo especial!</div>
+      <button class="celebration-close" onclick="closeCelebration()">CONTINUAR</button>
+    </div>
+  </div>
+
   <script>
     const rawQuestionsText = `
 
+ITEM 1
 ITEM 1
 
 O fluxo sanguíneo das carótidas e vertebrais é laminar e a velocidade é uniforme em toda a secção transversal do vaso.
@@ -989,11 +1158,11 @@ EXPLICAÇÃO: Durante a avaliação de um aneurisma de aorta abdominal (AAA), é
 
 ITEM 95
 
-Durante a avaliação de um aneurisma de aorta abdominal (AAA), é importante conhecer alguns termos. O colo distal do aneurisma é a distância entre a porção inicial (cranial) do aneurisma e 2 cm abaixo da bifurcação da artérias ilíacas.
+Durante a avaliação de um aneurisma de aorta abdominal (AAA), é importante conhecer alguns termos. O colo distal do aneurisma é a distância entre a porção inicial (cranial) do aneurisma e 2 cm abaixo da bifurcação das artérias ilíacas.
 
 GABARITO: FALSO
 
-EXPLICAÇÃO: Durante a avaliação de um aneurisma de aorta abdominal (AAA), é importante conhecer alguns termos. O colo distal do aneurisma é a distância entre a porção final do aneurisma e o início da bifurcação da artérias ilíacas.
+EXPLICAÇÃO: Durante a avaliação de um aneurisma de aorta abdominal (AAA), é importante conhecer alguns termos. O colo distal do aneurisma é a distância entre a porção final do aneurisma e o início da bifurcação das artérias ilíacas.
 
 ITEM 96
 
@@ -1147,6 +1316,134 @@ GABARITO: VERDADEIRO
 
 EXPLICAÇÃO: Nas artérias periféricas, o aneurisma micótico costuma ser formado na artéria femoral por ser o principal sítio de acessos vasculares em procedimentos diagnósticos e terapêuticos.
 
+ITEM 115
+
+O aneurisma roto é uma condição patológica caracterizada pela ruptura do aneurisma, sendo considerada uma emergência cirúrgica devido a sua alta mortalidade (90%).
+
+GABARITO: VERDADEIRO
+
+EXPLICAÇÃO: O aneurisma roto é uma condição patológica caracterizada pela ruptura do aneurisma, sendo considerada uma emergência cirúrgica devido a sua alta mortalidade (90%).
+
+ITEM 116
+
+Pacientes com diagnóstico de aneurisma apresentando quadro clínico vago como dor na região lombar/hipogástrica/inguinal, hipotensão, massa pulsátil abdominal, palidez cutânea e sudorese, deve-se excluir a possibilidade diagnóstica de ruptura de aneurisma e aventar a possibilidade de se tratar de um aneurisma micótico.
+
+GABARITO: FALSO
+
+EXPLICAÇÃO: Pacientes com diagnóstico de aneurisma apresentando quadro clínico vago como dor na região lombar/hipogástrica/inguinal, hipotensão, massa pulsátil abdominal, palidez cutânea e sudorese, deve-se aventar a possibilidade diagnóstica de ruptura de aneurisma.
+
+ITEM 117
+
+Os aneurismas com calibre maior do que 5,0-5,5 cm são mais propensos a rotura. As características ultrassonográficas do aneurisma roto são: borramento dos bordos dos planos adjacentes, parede do aneurisma heterogênea e, às vezes, identificação de extravasamento do sangue no Doppler colorido.
+
+GABARITO: VERDADEIRO
+
+EXPLICAÇÃO: Os aneurismas com calibre maior do que 5,0-5,5 cm são mais propensos a rotura. As características ultrassonográficas do aneurisma roto são: borramento dos bordos dos planos adjacentes, parede do aneurisma heterogênea e, às vezes, identificação de extravasamento do sangue no Doppler colorido.
+
+ITEM 118
+
+A dissecção da aorta é uma condição patológica que pode ocorrer em um vaso com o sem aneurisma e é caracterizada pela ruptura da túnica íntima com progressão distal do sangue pela túnica média (camada muscular).
+
+GABARITO: VERDADEIRO
+
+EXPLICAÇÃO: A dissecção da aorta é uma condição patológica que pode ocorrer em um vaso com o sem aneurisma e é caracterizada pela ruptura da túnica íntima com progressão distal do sangue pela túnica média (camada muscular).
+
+ITEM 119
+
+Na ultrassonografia, a dissecção da aorta pode ser identificada através da visualização de dois lúmens (luz verdadeira e luz falsa), separadas pela túnica média dissecada que forma um "flap" sobre a túnica adventícia. Esse "flap" se apresentará como uma linha hipoecogênica e móvel com o pulso arterial.
+
+GABARITO: FALSO
+
+EXPLICAÇÃO: Na ultrassonografia, a dissecção da aorta pode ser identificada através da visualização de dois lúmens (luz verdadeira e luz falsa), separadas pela túnica íntima dissecada que forma um "flap". Esse "flap" intimal se apresentará como uma linha ecogênica e móvel com o pulso arterial.
+
+ITEM 120
+
+Dissecção da aorta costuma ocorrer espontaneamente em jovem adultos (< 30 anos). A hipertensão é um dos principais fatores de risco, porém pode ser causado por outras condições como doenças congênitas (síndrome de Marfan e necrose cística idiopática da túnica média) e adquirida (sífilis).
+
+GABARITO: FALSO
+
+EXPLICAÇÃO: Dissecção da aorta costuma ocorrer espontaneamente em adultos de meia idade e idosos (> 60 anos). A hipertensão é um dos principais fatores de risco, porém pode ser causado por outras condições como doenças congênitas (síndrome de Marfan e necrose cística idiopática da túnica média) e adquirida (sífilis).
+
+ITEM 121
+
+A maioria das dissecções da aorta iniciam-se no segmento torácico, estendendo-se posterior ao segmento abdominal.
+
+GABARITO: VERDADEIRO
+
+EXPLICAÇÃO: A maioria das dissecções da aorta iniciam-se no segmento torácico, estendendo-se posterior ao segmento abdominal.
+
+ITEM 122
+
+As doenças obstrutivas da aorta são aquelas doenças que cursam com estreitamentos (estenoses) da luz do vaso seguidos de dilatações aneurismáticas sequenciais, sendo conhecidas como "tandem lesions". As principais doenças que vão levar a essa condição são: síndrome de Lerich, arterites (autoimunes e infecciosas) e síndrome da aorta média.
+
+GABARITO: FALSO
+
+EXPLICAÇÃO: As doenças obstrutivas da aorta são aquelas doenças que cursam com estreitamento (estenose) da luz do vaso. As principais doenças que vão levar a essa condição são: síndrome de Lerich, arterites (autoimunes e infecciosas) e síndrome da aorta média.
+
+ITEM 123
+
+A síndrome de Lerich é uma forma grave da arteriosclerose levando à oclusão da aorta suprarrenal, sendo caracterizada portanto como uma doença obstrutiva da aorta. Tabagismo, dislipidemia e diabetes mellitus são os principais fatores de risco.
+
+GABARITO: FALSO
+
+EXPLICAÇÃO: A síndrome de Lerich é uma forma grave da arteriosclerose levando à oclusão da aorta infrarrenal, sendo caracterizada portanto como uma doença obstrutiva da aorta. Tabagismo, dislipidemia e diabetes mellitus são os principais fatores de risco.
+
+ITEM 124
+
+As doenças obstrutivas da aorta também podem ser causadas por arterites autoimunes (arterites de Takayassu e de células gigantes, espondilite anquilosante e artrite reumatoide), mas não podem ser de causas infecciosas. As infecções por S. Aureus e Salmonella, principalmente, são responsáveis pela formação de aneurismas micóticos.
+
+GABARITO: FALSO
+
+EXPLICAÇÃO: As doenças obstrutivas da aorta também podem ser causadas por arterites autoimunes (arterites de Takayassu e de células gigantes, espondilite anquilosante e artrite reumatoide), mas não podem ser de causas infecciosas. As infecções por S. Aureus e Salmonella, principalmente, são responsáveis pela formação de aneurismas micóticos.
+
+ITEM 125
+
+A síndrome da aorta média é uma outra doença obstrutiva da aorta e é caracterizada por uma hipoplasia/aplasia fibromuscular sem alterações inflamatórias. Envolve ramos viscerais, como artéria renal em 60-90% dos casos e a artéria mesentérica superior em 35-50% dos casos.
+
+GABARITO: FALSO
+
+EXPLICAÇÃO: A síndrome da aorta média é uma outra doença obstrutiva da aorta e é caracterizada por uma hiperplasia fibromuscular sem alterações inflamatórias (como na arterite de Takayassu, por exemplo). Envolve ramos viscerais, como artéria renal em 60-90% dos casos e a artéria mesentérica superior em 35-50% dos casos.
+
+ITEM 126
+
+A síndrome da aorta média, pertencente ao espectro das doenças obstrutivas da aorta, costumam cursar com sintomas entre a terceira e quarta década de vida e é a causa mais importante de hipertensão refratária à terapia medicamentosa.
+
+GABARITO: FALSO
+
+EXPLICAÇÃO: A síndrome da aorta média, pertencente ao espectro das doenças obstrutivas da aorta, costumam cursar com sintomas nas primeiras décadas de vida e é a causa mais importante de hipertensão em crianças com tratamento refratário.
+
+ITEM 127
+
+Em relação aos aspectos gerais da avaliação da estenose em um vaso arterial, as seguintes características estarão presentes: elevação do índice de resistência à montante (podendo ocorrer dilatação no segmento pré-estenótico), elevação da velocidade de pico sistólico (VPS) na estenose e vasodilatação compensatória à jusante (segmento pós-estenótico) devido a isquemia do leito arterial distal.
+
+GABARITO: VERDADEIRO
+
+EXPLICAÇÃO: Em relação aos aspectos gerais da avaliação da estenose em um vaso arterial, as seguintes características estarão presentes: elevação do índice de resistência à montante (podendo ocorrer dilatação no segmento pré-estenótico), elevação da velocidade de pico sistólico (VPS) na estenose e vasodilatação compensatória à jusante (segmento pós-estenótico) devido a isquemia do leito arterial distal.
+
+ITEM 128
+
+Nas doenças obstrutivas da aorta, estenoses hemodinamicamente significativas são aquelas superiores a 50%, ou seja, a velocidade de pico sistólica (VPS) no segmento estenótico deve ser 2 vezes maior do que o segmento vascular proximal pré-estenótico (à montante).
+
+GABARITO: VERDADEIRO
+
+EXPLICAÇÃO: Nas doenças obstrutivas da aorta, estenoses hemodinamicamente significativas são aquelas superiores a 50%, ou seja, a velocidade de pico sistólica (VPS) no segmento estenótico deve ser 2 vezes maior do que o segmento vascular proximal pré-estenótico (à montante).
+
+ITEM 129
+
+Nas doenças obstrutivas da aorta, estenoses superior a 70% são aquelas em que a velocidade de pico sistólica (VPS) no segmento estenótico é 3 vezes maior do que o segmento vascular proximal pré-estenótico (à montante).
+
+GABARITO: VERDADEIRO
+
+EXPLICAÇÃO: Nas doenças obstrutivas da aorta, estenoses superior a 70% são aquelas em que a velocidade de pico sistólica (VPS) no segmento estenótico é 3 vezes maior do que o segmento vascular proximal pré-estenótico (à montante).
+
+ITEM 130
+
+Nas doenças obstrutivas da aorta, suboclusão é definido como um afilamento acentuado da luz (> 95% de estreitamento), podendo inclusive causar redução das velocidades sistólicas. Em contrapartida, oclusão é quando há trombo na luz e ausência de fluxo no modo Doppler, porém com fluxo presente no modo power Doppler e no modo espectral.
+
+GABARITO: FALSO
+
+EXPLICAÇÃO: Nas doenças obstrutivas da aorta, suboclusão é definido como um afilamento acentuado da luz (> 95% de estreitamento), podendo inclusive causar redução das velocidades sistólicas. Em contrapartida, oclusão é quando há trombo na luz e ausência de fluxo no modo Doppler, no modo power Doppler e no modo espectral.
+
 `;
 
     let questions = [];
@@ -1156,6 +1453,13 @@ EXPLICAÇÃO: Nas artérias periféricas, o aneurisma micótico costuma ser form
     const MAX_ERRORS = 5;
     let lastAnswerWasWrong = false;
     let hasPendingError = false;
+
+    // Sistema de medalhas e troféus
+    let dailyItemsCompleted = 0;
+    let monthlyGoldMedals = 0;
+    let totalTrophies = 0;
+    let lastPlayDate = null;
+    let currentMonth = null;
 
     function parseQuestions(text) {
       const items = [];
@@ -1209,6 +1513,150 @@ EXPLICAÇÃO: Nas artérias periféricas, o aneurisma micótico costuma ser form
       return items;
     }
 
+    function getDateKey() {
+      const now = new Date();
+      let day = now.getDate();
+      let month = now.getMonth();
+      let year = now.getFullYear();
+      
+      // Se for antes das 7h, considera ainda o dia anterior
+      if (now.getHours() < 7) {
+        const yesterday = new Date(now);
+        yesterday.setDate(yesterday.getDate() - 1);
+        day = yesterday.getDate();
+        month = yesterday.getMonth();
+        year = yesterday.getFullYear();
+      }
+      
+      return `${year}-${month}-${day}`;
+    }
+
+    function getMonthKey() {
+      const now = new Date();
+      const month = now.getMonth();
+      const year = now.getFullYear();
+      return `${year}-${month}`;
+    }
+
+    function getDaysInMonth() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      return new Date(year, month + 1, 0).getDate();
+    }
+
+    function loadMedalsData() {
+      const savedData = localStorage.getItem('tfMedalsData');
+      if (savedData) {
+        const data = JSON.parse(savedData);
+        
+        const currentDateKey = getDateKey();
+        const currentMonthKey = getMonthKey();
+        
+        // Verifica se mudou o dia (depois das 7h)
+        if (data.lastPlayDate !== currentDateKey) {
+          // Verifica se completou 50 itens no dia anterior
+          if (data.dailyItemsCompleted >= 50) {
+            monthlyGoldMedals++;
+          }
+          // Reseta contador diário
+          dailyItemsCompleted = 0;
+        } else {
+          dailyItemsCompleted = data.dailyItemsCompleted || 0;
+        }
+        
+        // Verifica se mudou o mês
+        if (data.currentMonth !== currentMonthKey) {
+          // Verifica se ganhou troféu no mês anterior
+          if (data.currentMonth) {
+            const prevMonthData = JSON.parse(localStorage.getItem('tfPrevMonth') || '{}');
+            const prevMonthMedals = prevMonthData.medals || 0;
+            const prevMonthDays = prevMonthData.days || 28;
+            const requiredMedals = Math.ceil(prevMonthDays * 0.7);
+            
+            if (prevMonthMedals >= requiredMedals) {
+              totalTrophies++;
+              showCelebration('trophy', prevMonthMedals, prevMonthDays);
+            }
+          }
+          
+          // Salva dados do mês que acabou
+          localStorage.setItem('tfPrevMonth', JSON.stringify({
+            medals: data.monthlyGoldMedals || 0,
+            days: getDaysInMonth()
+          }));
+          
+          // Reseta medalhas mensais
+          monthlyGoldMedals = 0;
+        } else {
+          monthlyGoldMedals = data.monthlyGoldMedals || 0;
+        }
+        
+        totalTrophies = data.totalTrophies || 0;
+        lastPlayDate = currentDateKey;
+        currentMonth = currentMonthKey;
+      } else {
+        lastPlayDate = getDateKey();
+        currentMonth = getMonthKey();
+      }
+      
+      updateMedalsDisplay();
+    }
+
+    function saveMedalsData() {
+      const data = {
+        dailyItemsCompleted: dailyItemsCompleted,
+        monthlyGoldMedals: monthlyGoldMedals,
+        totalTrophies: totalTrophies,
+        lastPlayDate: lastPlayDate,
+        currentMonth: currentMonth
+      };
+      localStorage.setItem('tfMedalsData', JSON.stringify(data));
+    }
+
+    function updateMedalsDisplay() {
+      document.getElementById('daily-items').textContent = `${dailyItemsCompleted}/50`;
+      document.getElementById('monthly-medals').textContent = monthlyGoldMedals;
+      document.getElementById('total-trophies').textContent = totalTrophies;
+    }
+
+    function incrementDailyItems() {
+      dailyItemsCompleted++;
+      
+      // Verifica se completou 50 itens
+      if (dailyItemsCompleted === 50) {
+        monthlyGoldMedals++;
+        showCelebration('medal');
+      }
+      
+      updateMedalsDisplay();
+      saveMedalsData();
+    }
+
+    function showCelebration(type, medals = 0, days = 0) {
+      const modal = document.getElementById('celebration-modal');
+      const icon = document.getElementById('celebration-icon');
+      const title = document.getElementById('celebration-title');
+      const text = document.getElementById('celebration-text');
+      
+      if (type === 'medal') {
+        icon.textContent = '🥇';
+        title.textContent = 'MEDALHA DE OURO!';
+        text.textContent = 'Parabéns! Você completou 50 itens hoje e ganhou uma medalha de ouro!';
+      } else if (type === 'trophy') {
+        icon.textContent = '🏆';
+        title.textContent = 'TROFÉU CONQUISTADO!';
+        const requiredMedals = Math.ceil(days * 0.7);
+        text.textContent = `Incrível! Você conquistou ${medals} medalhas de ouro em ${days} dias (necessário: ${requiredMedals}) e ganhou um troféu!`;
+      }
+      
+      modal.classList.add('show');
+    }
+
+    function closeCelebration() {
+      document.getElementById('celebration-modal').classList.remove('show');
+    }
+
     function saveProgress() {
       localStorage.setItem('tfQuizProgress', JSON.stringify({
         currentQuestionIndex: currentQuestionIndex,
@@ -1234,6 +1682,7 @@ EXPLICAÇÃO: Nas artérias periféricas, o aneurisma micótico costuma ser form
     function initQuiz() {
       questions = parseQuestions(rawQuestionsText);
       loadProgress();
+      loadMedalsData();
       
       if (currentQuestionIndex >= questions.length) {
         currentQuestionIndex = 0;
@@ -1307,6 +1756,9 @@ EXPLICAÇÃO: Nas artérias periféricas, o aneurisma micótico costuma ser form
         updateErrorCounter();
         saveProgress();
         hasPendingError = false;
+      } else {
+        // Se acertou, incrementa contador diário
+        incrementDailyItems();
       }
       
       // Verifica se atingiu o limite de erros
