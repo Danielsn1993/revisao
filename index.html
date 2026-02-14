@@ -1168,11 +1168,11 @@ EXPLICAÇÃO: Os aneurismas de aorta abdominal (AAA) do tipo sacular possuem mai
 
 ITEM 94
 
-Durante a avaliação de um aneurisma de aorta abdominal (AAA), é importante conhecer alguns termos. O colo proximal do aneurisma é a distância entre a porção normal da aorta que se inicia proximal à arterial renal mais cranial e o início inferior (cranial) do aneurisma.
+Durante a avaliação de um aneurisma de aorta abdominal (AAA), é importante conhecer alguns termos. O colo proximal do aneurisma é a distância entre a porção normal da aorta que se inicia proximal à arteria renal mais cranial e o início inferior (cranial) do aneurisma.
 
 GABARITO: FALSO
 
-EXPLICAÇÃO: Durante a avaliação de um aneurisma de aorta abdominal (AAA), é importante conhecer alguns termos. O colo proximal do aneurisma é a distância entre a porção normal da aorta que se inicia distal à arterial renal mais caudal e o início superior (cranial) do aneurisma.
+EXPLICAÇÃO: Durante a avaliação de um aneurisma de aorta abdominal (AAA), é importante conhecer alguns termos. O colo proximal do aneurisma é a distância entre a porção normal da aorta que se inicia distal à arteria renal mais caudal e o início superior (cranial) do aneurisma.
 
 ITEM 95
 
@@ -1194,7 +1194,7 @@ ITEM 97
 
 O tratamento dos aneurismas de aorta abdominal (AAA) são de dois tipos: cirurgia convencional e método endovascular. No método endovascular há substituição do segmento aórtico dilatado por uma próstese sintética através de uma anastomose término-terminal com sutura junto ao colo proximal e distal do aneurisma, por via arterial radial ou femoral.
 
-GABARITO: 
+GABARITO: FALSO
 
 EXPLICAÇÃO: O tratamento dos aneurismas de aorta abdominal (AAA) são de dois tipos: cirurgia convencional e método endovascular. Na cirurgia convencional há substituição do segmento aórtico dilatado por uma próstese sintética através de uma anastomose término-terminal com sutura junto ao colo proximal e distal do aneurisma.
 
@@ -1923,6 +1923,21 @@ EXPLICAÇÃO: A esquistossomose é responsável por causar esplenomegalias grand
       return items;
     }
 
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    function scrollToMessage() {
+      const messageBox = document.getElementById('message-box');
+      messageBox.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+
     function getDateKey() {
       const now = new Date();
       let day = now.getDate();
@@ -1965,10 +1980,10 @@ EXPLICAÇÃO: A esquistossomose é responsável por causar esplenomegalias grand
         
         // Verifica se mudou o dia (depois das 7h)
         if (data.lastPlayDate !== currentDateKey) {
-          // Verifica se completou 50 itens no dia anterior
-          if (data.dailyItemsCompleted >= 50) {
-            monthlyGoldMedals++;
-          }
+          // Calcula quantas medalhas foram ganhas no dia anterior
+          const medalsEarned = Math.floor(data.dailyItemsCompleted / 50);
+          monthlyGoldMedals += medalsEarned;
+          
           // Reseta contador diário
           dailyItemsCompleted = 0;
         } else {
@@ -2033,8 +2048,8 @@ EXPLICAÇÃO: A esquistossomose é responsável por causar esplenomegalias grand
     function incrementDailyItems() {
       dailyItemsCompleted++;
       
-      // Verifica se completou 50 itens
-      if (dailyItemsCompleted === 50) {
+      // Verifica se completou múltiplos de 50 itens
+      if (dailyItemsCompleted % 50 === 0) {
         monthlyGoldMedals++;
         showCelebration('medal');
       }
@@ -2052,12 +2067,13 @@ EXPLICAÇÃO: A esquistossomose é responsável por causar esplenomegalias grand
       if (type === 'medal') {
         icon.textContent = '🥇';
         title.textContent = 'MEDALHA DE OURO!';
-        text.textContent = 'Parabéns! Você acertou 50 itens hoje e ganhou uma medalha de ouro!';
+        const medalCount = Math.floor(dailyItemsCompleted / 50);
+        text.textContent = `Parabéns! Você acertou ${dailyItemsCompleted} itens hoje e ganhou ${medalCount === 1 ? 'uma medalha' : medalCount + ' medalhas'} de ouro!`;
       } else if (type === 'trophy') {
         icon.textContent = '🏆';
         title.textContent = 'TROFÉU CONQUISTADO!';
         const requiredMedals = Math.ceil(days * 0.7);
-        text.textContent = `Incrível! Você conquistou ${medals} medalhas de ouro em ${days} dias (necessário: ${requiredMedals}) e ganhou um troféu!`;
+        text.textContent = `Incrível! Você conquistou ${medals} medalhas de ouro neste mês e ganhou um troféu!`;
       }
       
       modal.classList.add('show');
@@ -2157,6 +2173,9 @@ EXPLICAÇÃO: A esquistossomose é responsável por causar esplenomegalias grand
       
       document.getElementById('answer-buttons').style.display = 'none';
       document.getElementById('continue-buttons').style.display = 'block';
+      
+      // Rola para o gabarito
+      setTimeout(scrollToMessage, 100);
     }
 
     function nextQuestion() {
@@ -2179,6 +2198,7 @@ EXPLICAÇÃO: A esquistossomose é responsável por causar esplenomegalias grand
         updateErrorCounter();
         saveProgress();
         loadQuestion();
+        scrollToTop();
         return;
       }
       
@@ -2194,6 +2214,7 @@ EXPLICAÇÃO: A esquistossomose é responsável por causar esplenomegalias grand
       }
       
       loadQuestion();
+      scrollToTop();
     }
 
     function resetQuiz() {
@@ -2203,6 +2224,7 @@ EXPLICAÇÃO: A esquistossomose é responsável por causar esplenomegalias grand
         updateErrorCounter();
         saveProgress();
         initQuiz();
+        scrollToTop();
       }
     }
 
