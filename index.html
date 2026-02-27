@@ -28,6 +28,12 @@
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
       padding: 30px;
       position: relative;
+      opacity: 0; /* ✨ ADICIONA ISTO */
+      transition: opacity 0.3s ease-in; /* ✨ E ISTO */
+    }
+
+    .container.loaded { /* ✨ E ISTO TAMBÉM */
+      opacity: 1;
     }
 
     /* ========== TELA DE LOGIN ========== */
@@ -442,7 +448,7 @@
 <body>
   <div class="container">
     <!-- ========== TELA DE LOGIN ========== -->
-    <div id="login-screen" class="active">
+    <div id="login-screen">
       <h1>🎯 VERDADEIRO OU FALSO</h1>
       <p>Faça login para salvar seu progresso na nuvem</p>
       <button class="btn-login" onclick="loginWithGoogle()">
@@ -2772,6 +2778,9 @@ EXPLICAÇÃO: Na análise espectral da ultrassonografia modo Doppler de paciente
     window.addEventListener('DOMContentLoaded', () => {
       // Espera verificar se o usuário está logado
       auth.onAuthStateChanged(async user => {
+        // ✨ ADICIONA A CLASSE 'loaded' PARA MOSTRAR O CONTAINER ✨
+        document.querySelector('.container').classList.add('loaded');
+        
         if (!user) {
           showScreen('login-screen');
           return;
