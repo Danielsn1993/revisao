@@ -27,6 +27,78 @@
       border-radius: 20px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
       padding: 30px;
+      position: relative;
+    }
+
+    /* ========== TELA DE LOGIN ========== */
+    #login-screen {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    #login-screen.active {
+      display: block;
+    }
+
+    #login-screen h1 {
+      color: #667eea;
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    #login-screen p {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .btn-login {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    /* ========== BOTÃO SAIR ========== */
+    .btn-logout {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ff4f00;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      z-index: 100;
+    }
+
+    .btn-logout:hover {
+      background: #ff6a00;
+      transform: translateY(-1px);
+    }
+
+    /* ========== JOGO (mantém tudo igual) ========== */
+    #game-screen {
+      display: none;
+    }
+
+    #game-screen.active {
+      display: block;
     }
 
     .counters-container {
@@ -362,52 +434,74 @@
       }
     }
   </style>
+  
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
   <div class="container">
-    <div class="medals-container">
-      <div class="daily-progress">
-        <div class="daily-progress-title">ITENS QUE VOCÊ ACERTOU HOJE</div>
-        <div class="daily-progress-count" id="daily-items">0/50</div>
-      </div>
-      <div class="medals-stats">
-        <div class="medals-row">
-          <span class="medal-emoji">🥇</span> <span id="monthly-medals">0</span>
+    <!-- ========== TELA DE LOGIN ========== -->
+    <div id="login-screen" class="active">
+      <h1>🎯 VERDADEIRO OU FALSO</h1>
+      <p>Faça login para salvar seu progresso na nuvem</p>
+      <button class="btn-login" onclick="loginWithGoogle()">
+        🔐 Entrar com Google
+      </button>
+      <p style="margin-top: 20px; font-size: 14px; color: #999;">
+        Seu progresso, medalhas e troféus serão salvos!
+      </p>
+    </div>
+
+    <!-- ========== JOGO ========== -->
+    <div id="game-screen">
+      <button class="btn-logout" onclick="logout()">SAIR</button>
+
+      <div class="medals-container">
+        <div class="daily-progress">
+          <div class="daily-progress-title">ITENS QUE VOCÊ ACERTOU HOJE</div>
+          <div class="daily-progress-count" id="daily-items">0/50</div>
+        </div>
+        <div class="medals-stats">
+          <div class="medals-row">
+            <span class="medal-emoji">🥇</span> <span id="monthly-medals">0</span>
+          </div>
+        </div>
+        <div class="trophy-container">
+          <span class="trophy-emoji">🏆</span>
+          <span class="trophy-count" id="total-trophies">0</span>
         </div>
       </div>
-      <div class="trophy-container">
-        <span class="trophy-emoji">🏆</span>
-        <span class="trophy-count" id="total-trophies">0</span>
+
+      <div class="counters-container">
+        <div class="question-counter" id="question-counter">
+          Item: 1/10
+        </div>
+        <div class="error-counter" id="error-counter">
+          ❌ Erros: 0/5
+        </div>
       </div>
-    </div>
 
-    <div class="counters-container">
-      <div class="question-counter" id="question-counter">
-        Item: 1/10
+      <h1>VERDADEIRO OU FALSO</h1>
+
+      <div class="question-box">
+        <p class="question-text" id="question-text">Carregando questão...</p>
       </div>
-      <div class="error-counter" id="error-counter">
-        ❌ Erros: 0/5
+
+      <div class="message-box" id="message-box"></div>
+
+      <div class="buttons-container" id="answer-buttons">
+        <button class="btn-true" onclick="checkAnswer(true)">VERDADEIRO</button>
+        <button class="btn-false" onclick="checkAnswer(false)">FALSO</button>
       </div>
+
+      <div id="continue-buttons" style="display: none;">
+        <button class="btn-continue" onclick="nextQuestion()">CONTINUAR</button>
+      </div>
+
+      <button class="reset-btn" onclick="resetQuiz()">🔄 REINICIAR</button>
     </div>
-
-    <h1>VERDADEIRO OU FALSO</h1>
-
-    <div class="question-box">
-      <p class="question-text" id="question-text">Carregando questão...</p>
-    </div>
-
-    <div class="message-box" id="message-box"></div>
-
-    <div class="buttons-container" id="answer-buttons">
-      <button class="btn-true" onclick="checkAnswer(true)">VERDADEIRO</button>
-      <button class="btn-false" onclick="checkAnswer(false)">FALSO</button>
-    </div>
-
-    <div id="continue-buttons" style="display: none;">
-      <button class="btn-continue" onclick="nextQuestion()">CONTINUAR</button>
-    </div>
-
-    <button class="reset-btn" onclick="resetQuiz()">🔄 REINICIAR</button>
   </div>
 
   <div class="celebration-modal" id="celebration-modal">
@@ -420,6 +514,26 @@
   </div>
 
   <script>
+    // ========== CONFIGURAÇÃO FIREBASE ==========
+    const firebaseConfig = {
+      apiKey: "AIzaSyAZfMrzMlH01Pmlap8EwamXpzyJ5XWhiFU",
+      authDomain: "verdadeiro-ou-falso-839c2.firebaseapp.com",
+      projectId: "verdadeiro-ou-falso-839c2",
+      storageBucket: "verdadeiro-ou-falso-839c2.firebasestorage.app",
+      messagingSenderId: "10803777405",
+      appId: "1:10803777405:web:0ff3bec340f049cf750614",
+      measurementId: "G-3CCBQ8GEL1"
+    };
+
+    // Inicializar Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // Variável para guardar o usuário logado
+    let currentUser = null;
+
+    // ========== VARIÁVEIS DO JOGO (mantém tudo igual) ==========
     const rawQuestionsText = `
 
 ITEM 1
@@ -2063,6 +2177,334 @@ EXPLICAÇÃO: Na análise espectral da ultrassonografia modo Doppler de paciente
     let lastPlayDate = null;
     let currentMonth = null;
 
+    // ========== FUNÇÕES FIREBASE ==========
+    
+    function loginWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      
+      auth.signInWithPopup(provider)
+        .then(async (result) => {
+          currentUser = result.user;
+          console.log('✅ Login realizado:', currentUser.displayName);
+          
+          // Carrega dados da nuvem
+          await loadFromCloud();
+          
+          // Mostra o jogo
+          showScreen('game-screen');
+        })
+        .catch((error) => {
+          console.error('❌ Erro no login:', error);
+          alert('Erro ao fazer login. Tente novamente.');
+        });
+    }
+
+    function logout() {
+      if (confirm('Deseja sair da sua conta? Seu progresso está salvo.')) {
+        // Limpa localStorage do usuário atual
+        if (currentUser) {
+          const key = `tfGameData_${currentUser.uid}`;
+          localStorage.removeItem(key);
+        }
+        
+        auth.signOut()
+          .then(() => {
+            showScreen('login-screen');
+            location.reload();
+          })
+          .catch((error) => {
+            console.error('Erro ao fazer logout:', error);
+            alert('Erro ao sair. Tente novamente.');
+          });
+      }
+    }
+
+    function showScreen(screenId) {
+      document.getElementById('login-screen').classList.remove('active');
+      document.getElementById('game-screen').classList.remove('active');
+      document.getElementById(screenId).classList.add('active');
+    }
+
+    // ========== SALVAR NA NUVEM ==========
+    async function saveToCloud() {
+      if (!currentUser) {
+        console.warn('⚠️ Tentativa de salvar sem usuário logado');
+        saveToLocalStorage();
+        return false;
+      }
+      
+      try {
+        const saveData = {
+          displayName: currentUser.displayName,
+          email: currentUser.email,
+          
+          // Progresso do quiz
+          currentQuestionIndex: currentQuestionIndex,
+          errorCount: errorCount,
+          
+          // Medalhas e troféus
+          dailyItemsCompleted: dailyItemsCompleted,
+          monthlyGoldMedals: monthlyGoldMedals,
+          totalTrophies: totalTrophies,
+          lastPlayDate: lastPlayDate,
+          currentMonth: currentMonth,
+          
+          // Timestamp
+          lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
+        };
+        
+        // Tenta salvar no Firebase com timeout de 5 segundos
+        const savePromise = db.collection('truefalse_players').doc(currentUser.uid).set(saveData, { merge: true });
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Timeout')), 5000)
+        );
+        
+        await Promise.race([savePromise, timeoutPromise]);
+        console.log('✅ Progresso salvo na nuvem!');
+        
+        // Salva também no localStorage como backup
+        saveToLocalStorage();
+        
+        return true;
+      } catch (error) {
+        console.error('❌ Erro ao salvar na nuvem:', error);
+        console.log('💾 Salvando backup no localStorage...');
+        
+        // Se falhar, salva no localStorage
+        saveToLocalStorage();
+        return false;
+      }
+    }
+
+    // ========== CARREGAR DA NUVEM ==========
+    async function loadFromCloud() {
+      if (!currentUser) {
+        console.error('Usuário não está logado');
+        return false;
+      }
+      
+      try {
+        // Tenta carregar do Firebase com timeout de 5 segundos
+        const docPromise = db.collection('truefalse_players').doc(currentUser.uid).get();
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Timeout')), 5000)
+        );
+        
+        const doc = await Promise.race([docPromise, timeoutPromise]);
+        
+        let cloudData = null;
+        let localData = null;
+        
+        // Carrega dados da nuvem
+        if (doc.exists) {
+          cloudData = doc.data();
+          console.log('☁️ Save encontrado na nuvem');
+        }
+        
+        // Carrega dados do localStorage
+        localData = loadFromLocalStorage();
+        
+        // Decide qual usar (o mais recente)
+        let dataToUse = null;
+        
+        if (cloudData && localData) {
+          // Tem os dois - usa o mais recente
+          const cloudTime = cloudData.lastUpdate ? cloudData.lastUpdate.toMillis() : 0;
+          const localTime = localData.lastUpdate || 0;
+          
+          if (localTime > cloudTime) {
+            console.log('📂 Usando backup LOCAL (mais recente)');
+            dataToUse = localData;
+            
+            // Sincroniza o localStorage com a nuvem
+            console.log('🔄 Sincronizando backup local com a nuvem...');
+            setTimeout(() => saveToCloud(), 2000);
+          } else {
+            console.log('☁️ Usando save da NUVEM (mais recente)');
+            dataToUse = cloudData;
+          }
+        } else if (cloudData) {
+          console.log('☁️ Usando save da nuvem');
+          dataToUse = cloudData;
+        } else if (localData) {
+          console.log('📂 Usando backup local');
+          dataToUse = localData;
+          
+          // Tenta sincronizar com a nuvem
+          console.log('🔄 Sincronizando com a nuvem...');
+          setTimeout(() => saveToCloud(), 2000);
+        } else {
+          console.log('Novo jogador - sem save anterior');
+          return false;
+        }
+        
+        const data = dataToUse;
+        
+        // Carrega progresso do quiz
+        currentQuestionIndex = data.currentQuestionIndex || 0;
+        errorCount = data.errorCount || 0;
+        
+        // Carrega medalhas e troféus
+        const currentDateKey = getDateKey();
+        const currentMonthKey = getMonthKey();
+        
+        // Verifica se mudou o dia
+        if (data.lastPlayDate !== currentDateKey) {
+          const medalsEarned = Math.floor(data.dailyItemsCompleted / 50);
+          monthlyGoldMedals = (data.monthlyGoldMedals || 0) + medalsEarned;
+          dailyItemsCompleted = 0;
+        } else {
+          dailyItemsCompleted = data.dailyItemsCompleted || 0;
+        }
+        
+        // Verifica se mudou o mês
+        if (data.currentMonth !== currentMonthKey) {
+          if (data.currentMonth) {
+            const prevMonthData = JSON.parse(localStorage.getItem('tfPrevMonth') || '{}');
+            const prevMonthMedals = prevMonthData.medals || 0;
+            const prevMonthDays = prevMonthData.days || 28;
+            const requiredMedals = Math.ceil(prevMonthDays * 0.7);
+            
+            if (prevMonthMedals >= requiredMedals) {
+              totalTrophies = (data.totalTrophies || 0) + 1;
+              showCelebration('trophy', prevMonthMedals, prevMonthDays);
+            }
+          }
+          
+          localStorage.setItem('tfPrevMonth', JSON.stringify({
+            medals: data.monthlyGoldMedals || 0,
+            days: getDaysInMonth()
+          }));
+          
+          monthlyGoldMedals = 0;
+        } else {
+          monthlyGoldMedals = data.monthlyGoldMedals || 0;
+        }
+        
+        totalTrophies = data.totalTrophies || 0;
+        lastPlayDate = currentDateKey;
+        currentMonth = currentMonthKey;
+        
+        console.log('✅ Progresso carregado com sucesso!');
+        return true;
+        
+      } catch (error) {
+        console.error('❌ Erro ao carregar da nuvem:', error);
+        console.log('📂 Tentando carregar do localStorage...');
+        
+        // Se falhar, tenta carregar do localStorage
+        const localData = loadFromLocalStorage();
+        
+        if (localData) {
+          console.log('✅ Backup local carregado!');
+          
+          currentQuestionIndex = localData.currentQuestionIndex || 0;
+          errorCount = localData.errorCount || 0;
+          
+          const currentDateKey = getDateKey();
+          const currentMonthKey = getMonthKey();
+          
+          if (localData.lastPlayDate !== currentDateKey) {
+            const medalsEarned = Math.floor(localData.dailyItemsCompleted / 50);
+            monthlyGoldMedals = (localData.monthlyGoldMedals || 0) + medalsEarned;
+            dailyItemsCompleted = 0;
+          } else {
+            dailyItemsCompleted = localData.dailyItemsCompleted || 0;
+          }
+          
+          if (localData.currentMonth !== currentMonthKey) {
+            if (localData.currentMonth) {
+              const prevMonthData = JSON.parse(localStorage.getItem('tfPrevMonth') || '{}');
+              const prevMonthMedals = prevMonthData.medals || 0;
+              const prevMonthDays = prevMonthData.days || 28;
+              const requiredMedals = Math.ceil(prevMonthDays * 0.7);
+              
+              if (prevMonthMedals >= requiredMedals) {
+                totalTrophies = (localData.totalTrophies || 0) + 1;
+                showCelebration('trophy', prevMonthMedals, prevMonthDays);
+              }
+            }
+            
+            localStorage.setItem('tfPrevMonth', JSON.stringify({
+              medals: localData.monthlyGoldMedals || 0,
+              days: getDaysInMonth()
+            }));
+            
+            monthlyGoldMedals = 0;
+          } else {
+            monthlyGoldMedals = localData.monthlyGoldMedals || 0;
+          }
+          
+          totalTrophies = localData.totalTrophies || 0;
+          lastPlayDate = currentDateKey;
+          currentMonth = currentMonthKey;
+          
+          // Tenta sincronizar com a nuvem quando possível
+          setTimeout(() => saveToCloud(), 3000);
+          
+          return true;
+        } else {
+          console.error('❌ Nenhum save encontrado');
+          return false;
+        }
+      }
+    }
+
+    // ========== LOCALSTORAGE (BACKUP) ==========
+    function saveToLocalStorage() {
+      if (!currentUser) {
+        console.warn('⚠️ Tentativa de salvar no localStorage sem usuário');
+        return false;
+      }
+      
+      try {
+        const saveData = {
+          currentQuestionIndex: currentQuestionIndex,
+          errorCount: errorCount,
+          dailyItemsCompleted: dailyItemsCompleted,
+          monthlyGoldMedals: monthlyGoldMedals,
+          totalTrophies: totalTrophies,
+          lastPlayDate: lastPlayDate,
+          currentMonth: currentMonth,
+          lastUpdate: Date.now()
+        };
+        
+        const key = `tfGameData_${currentUser.uid}`;
+        localStorage.setItem(key, JSON.stringify(saveData));
+        console.log(`💾 Backup salvo no localStorage para ${currentUser.displayName}`);
+        return true;
+      } catch (error) {
+        console.error('❌ Erro ao salvar no localStorage:', error);
+        return false;
+      }
+    }
+
+    function loadFromLocalStorage() {
+      if (!currentUser) {
+        console.warn('⚠️ Tentativa de carregar do localStorage sem usuário');
+        return null;
+      }
+      
+      try {
+        const key = `tfGameData_${currentUser.uid}`;
+        const savedData = localStorage.getItem(key);
+        
+        if (!savedData) {
+          console.log('📂 Nenhum backup local encontrado para este usuário');
+          return null;
+        }
+        
+        const data = JSON.parse(savedData);
+        console.log(`📂 Backup encontrado no localStorage para ${currentUser.displayName}`);
+        return data;
+      } catch (error) {
+        console.error('❌ Erro ao carregar do localStorage:', error);
+        return null;
+      }
+    }
+
+    // ========== FUNÇÕES AUXILIARES (mantém tudo igual) ==========
+    
     function parseQuestions(text) {
       const items = [];
       const itemPattern = /ITEM (\d+)/g;
@@ -2136,7 +2578,6 @@ EXPLICAÇÃO: Na análise espectral da ultrassonografia modo Doppler de paciente
       let month = now.getMonth();
       let year = now.getFullYear();
       
-      // Se for antes das 7h, considera ainda o dia anterior
       if (now.getHours() < 7) {
         const yesterday = new Date(now);
         yesterday.setDate(yesterday.getDate() - 1);
@@ -2162,92 +2603,26 @@ EXPLICAÇÃO: Na análise espectral da ultrassonografia modo Doppler de paciente
       return new Date(year, month + 1, 0).getDate();
     }
 
-    function loadMedalsData() {
-      const savedData = localStorage.getItem('tfMedalsData');
-      if (savedData) {
-        const data = JSON.parse(savedData);
-        
-        const currentDateKey = getDateKey();
-        const currentMonthKey = getMonthKey();
-        
-        // Verifica se mudou o dia (depois das 7h)
-        if (data.lastPlayDate !== currentDateKey) {
-          // Calcula quantas medalhas foram ganhas no dia anterior
-          const medalsEarned = Math.floor(data.dailyItemsCompleted / 50);
-          monthlyGoldMedals += medalsEarned;
-          
-          // Reseta contador diário
-          dailyItemsCompleted = 0;
-        } else {
-          dailyItemsCompleted = data.dailyItemsCompleted || 0;
-        }
-        
-        // Verifica se mudou o mês
-        if (data.currentMonth !== currentMonthKey) {
-          // Verifica se ganhou troféu no mês anterior
-          if (data.currentMonth) {
-            const prevMonthData = JSON.parse(localStorage.getItem('tfPrevMonth') || '{}');
-            const prevMonthMedals = prevMonthData.medals || 0;
-            const prevMonthDays = prevMonthData.days || 28;
-            const requiredMedals = Math.ceil(prevMonthDays * 0.7);
-            
-            if (prevMonthMedals >= requiredMedals) {
-              totalTrophies++;
-              showCelebration('trophy', prevMonthMedals, prevMonthDays);
-            }
-          }
-          
-          // Salva dados do mês que acabou
-          localStorage.setItem('tfPrevMonth', JSON.stringify({
-            medals: data.monthlyGoldMedals || 0,
-            days: getDaysInMonth()
-          }));
-          
-          // Reseta medalhas mensais
-          monthlyGoldMedals = 0;
-        } else {
-          monthlyGoldMedals = data.monthlyGoldMedals || 0;
-        }
-        
-        totalTrophies = data.totalTrophies || 0;
-        lastPlayDate = currentDateKey;
-        currentMonth = currentMonthKey;
-      } else {
-        lastPlayDate = getDateKey();
-        currentMonth = getMonthKey();
-      }
-      
-      updateMedalsDisplay();
-    }
-
-    function saveMedalsData() {
-      const data = {
-        dailyItemsCompleted: dailyItemsCompleted,
-        monthlyGoldMedals: monthlyGoldMedals,
-        totalTrophies: totalTrophies,
-        lastPlayDate: lastPlayDate,
-        currentMonth: currentMonth
-      };
-      localStorage.setItem('tfMedalsData', JSON.stringify(data));
-    }
-
     function updateMedalsDisplay() {
       document.getElementById('daily-items').textContent = `${dailyItemsCompleted}/50`;
       document.getElementById('monthly-medals').textContent = monthlyGoldMedals;
       document.getElementById('total-trophies').textContent = totalTrophies;
     }
 
+    function updateErrorCounter() {
+      document.getElementById('error-counter').textContent = `❌ Erros: ${errorCount}/${MAX_ERRORS}`;
+    }
+
     function incrementDailyItems() {
       dailyItemsCompleted++;
       
-      // Verifica se completou múltiplos de 50 itens
       if (dailyItemsCompleted % 50 === 0) {
         monthlyGoldMedals++;
         showCelebration('medal');
       }
       
       updateMedalsDisplay();
-      saveMedalsData();
+      saveToCloud(); // ← Salva na nuvem
     }
 
     function showCelebration(type, medals = 0, days = 0) {
@@ -2275,45 +2650,24 @@ EXPLICAÇÃO: Na análise espectral da ultrassonografia modo Doppler de paciente
       document.getElementById('celebration-modal').classList.remove('show');
     }
 
-    function saveProgress() {
-      localStorage.setItem('tfQuizProgress', JSON.stringify({
-        currentQuestionIndex: currentQuestionIndex,
-        errorCount: errorCount
-      }));
-    }
-
-    function loadProgress() {
-      const saved = localStorage.getItem('tfQuizProgress');
-      if (saved) {
-        const data = JSON.parse(saved);
-        currentQuestionIndex = data.currentQuestionIndex || 0;
-        errorCount = data.errorCount || 0;
-        return true;
-      }
-      return false;
-    }
-
-    function updateErrorCounter() {
-      document.getElementById('error-counter').textContent = `❌ Erros: ${errorCount}/${MAX_ERRORS}`;
-    }
-
+    // ========== FUNÇÕES DO JOGO (mantém tudo igual, só adiciona saveToCloud()) ==========
+    
     function initQuiz() {
       questions = parseQuestions(rawQuestionsText);
-      loadProgress();
-      loadMedalsData();
       
       if (currentQuestionIndex >= questions.length) {
         currentQuestionIndex = 0;
       }
       
       updateErrorCounter();
+      updateMedalsDisplay();
       loadQuestion();
     }
 
     function loadQuestion() {
       if (currentQuestionIndex >= questions.length) {
         currentQuestionIndex = 0;
-        saveProgress();
+        saveToCloud(); // ← Salva na nuvem
       }
       
       currentQuestion = questions[currentQuestionIndex];
@@ -2366,43 +2720,39 @@ EXPLICAÇÃO: Na análise espectral da ultrassonografia modo Doppler de paciente
       document.getElementById('answer-buttons').style.display = 'none';
       document.getElementById('continue-buttons').style.display = 'block';
       
-      // Rola para o gabarito
       setTimeout(scrollToMessage, 100);
     }
 
     function nextQuestion() {
-      // Contabiliza o erro pendente antes de avançar
       if (hasPendingError) {
         errorCount++;
         updateErrorCounter();
-        saveProgress();
+        saveToCloud(); // ← Salva na nuvem
         hasPendingError = false;
       } else {
-        // Se acertou, incrementa contador diário
         incrementDailyItems();
       }
       
-      // Verifica se atingiu o limite de erros
       if (errorCount >= MAX_ERRORS) {
         alert(`❌ Você atingiu ${MAX_ERRORS} erros!\n\nVoltaremos 25 itens para você tentar novamente.`);
         currentQuestionIndex = Math.max(0, currentQuestionIndex - 25);
         errorCount = 0;
         updateErrorCounter();
-        saveProgress();
+        saveToCloud(); // ← Salva na nuvem
         loadQuestion();
         scrollToTop();
         return;
       }
       
       currentQuestionIndex++;
-      saveProgress();
+      saveToCloud(); // ← Salva na nuvem
       
       if (currentQuestionIndex >= questions.length) {
         alert(`🎉 Parabéns! Você completou todos os ${questions.length} itens!\n\nTotal de erros: ${errorCount}\n\nO jogo será reiniciado para você tentar novamente.`);
         currentQuestionIndex = 0;
         errorCount = 0;
         updateErrorCounter();
-        saveProgress();
+        saveToCloud(); // ← Salva na nuvem
       }
       
       loadQuestion();
@@ -2414,14 +2764,34 @@ EXPLICAÇÃO: Na análise espectral da ultrassonografia modo Doppler de paciente
         currentQuestionIndex = 0;
         errorCount = 0;
         updateErrorCounter();
-        saveProgress();
+        saveToCloud(); // ← Salva na nuvem
         initQuiz();
         scrollToTop();
       }
     }
 
-    // Inicializa o quiz quando a página carrega
-    window.addEventListener('DOMContentLoaded', initQuiz);
+    // ========== INICIALIZAÇÃO ==========
+    window.addEventListener('DOMContentLoaded', () => {
+      // Espera verificar se o usuário está logado
+      auth.onAuthStateChanged(async user => {
+        if (!user) {
+          showScreen('login-screen');
+          return;
+        }
+        
+        currentUser = user;
+        console.log('✅ Usuário logado:', user.displayName);
+        
+        // Carrega dados da nuvem
+        await loadFromCloud();
+        
+        // Mostra o jogo
+        showScreen('game-screen');
+        
+        // Inicializa o quiz
+        initQuiz();
+      });
+    });
   </script>
 </body>
 </html>
