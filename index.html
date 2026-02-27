@@ -72,24 +72,23 @@
 
     /* ========== BOTÃO SAIR ========== */
     .btn-logout {
-      position: absolute;
-      top: 10px;
-      right: 10px;
       background: #ff4f00;
       color: white;
+      padding: 12px 25px;
       border: none;
-      padding: 8px 15px;
-      border-radius: 8px;
-      font-size: 14px;
+      border-radius: 10px;
+      font-size: 20px;
       font-weight: bold;
       cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
       transition: all 0.3s;
-      z-index: 100;
     }
 
     .btn-logout:hover {
       background: #ff6a00;
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 79, 0, 0.3);
     }
 
     /* ========== JOGO (mantém tudo igual) ========== */
@@ -456,8 +455,6 @@
 
     <!-- ========== JOGO ========== -->
     <div id="game-screen">
-      <button class="btn-logout" onclick="logout()">SAIR</button>
-
       <div class="medals-container">
         <div class="daily-progress">
           <div class="daily-progress-title">ITENS QUE VOCÊ ACERTOU HOJE</div>
@@ -501,6 +498,7 @@
       </div>
 
       <button class="reset-btn" onclick="resetQuiz()">🔄 REINICIAR</button>
+      <button class="btn-logout" onclick="logout()">🚪 SAIR</button>
     </div>
   </div>
 
