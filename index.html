@@ -28,11 +28,11 @@
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
       padding: 30px;
       position: relative;
-      opacity: 0; /* ✨ ADICIONA ISTO */
-      transition: opacity 0.3s ease-in; /* ✨ E ISTO */
+      opacity: 0;
+      transition: opacity 0.3s ease-in;
     }
 
-    .container.loaded { /* ✨ E ISTO TAMBÉM */
+    .container.loaded {
       opacity: 1;
     }
 
@@ -95,6 +95,58 @@
       background: #ff6a00;
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(255, 79, 0, 0.3);
+    }
+
+    /* ========== CALENDÁRIO DE TROFÉUS ========== */
+    .calendar-section {
+      margin-top: 20px;
+      padding: 20px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      border-radius: 15px;
+    }
+
+    .calendar-title {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #667eea;
+      margin-bottom: 15px;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .calendar-month {
+      background: white;
+      border: 2px solid #667eea;
+      border-radius: 10px;
+      padding: 15px 10px;
+      text-align: center;
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s;
+    }
+
+    .calendar-month:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .month-name {
+      font-size: 12px;
+      font-weight: bold;
+      color: #667eea;
+      margin-bottom: 5px;
+    }
+
+    .month-status {
+      font-size: 32px;
     }
 
     /* ========== JOGO (mantém tudo igual) ========== */
@@ -437,6 +489,23 @@
       .buttons-container {
         flex-direction: column;
       }
+
+      /* Layout mobile: 3 colunas */
+      .calendar-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .calendar-title {
+        font-size: 20px;
+      }
+
+      .month-name {
+        font-size: 11px;
+      }
+
+      .month-status {
+        font-size: 28px;
+      }
     }
   </style>
   
@@ -505,6 +574,14 @@
 
       <button class="reset-btn" onclick="resetQuiz()">🔄 REINICIAR</button>
       <button class="btn-logout" onclick="logout()">🚪 SAIR</button>
+
+      <!-- ========== CALENDÁRIO DE TROFÉUS ========== -->
+      <div class="calendar-section">
+        <div class="calendar-title">ANO 2026</div>
+        <div class="calendar-grid" id="calendar-grid">
+          <!-- Os meses serão gerados dinamicamente pelo JavaScript -->
+        </div>
+      </div>
     </div>
   </div>
 
@@ -537,7 +614,7 @@
     // Variável para guardar o usuário logado
     let currentUser = null;
 
-    // ========== VARIÁVEIS DO JOGO (mantém tudo igual) ==========
+    // ========== VARIÁVEIS DO JOGO ==========
     const rawQuestionsText = `
 
 ITEM 1
@@ -2973,6 +3050,57 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
     let lastPlayDate = null;
     let currentMonth = null;
 
+    // ========== CALENDÁRIO DE TROFÉUS ==========
+    let monthlyTrophiesCalendar = {};
+
+    const monthNames = [
+      'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN',
+      'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'
+    ];
+
+    function initializeCalendar() {
+      // Inicializa o calendário com os meses perdidos (janeiro e fevereiro)
+      if (!monthlyTrophiesCalendar['2026-0']) {
+        monthlyTrophiesCalendar['2026-0'] = '❌'; // Janeiro
+      }
+      if (!monthlyTrophiesCalendar['2026-1']) {
+        monthlyTrophiesCalendar['2026-1'] = '❌'; // Fevereiro
+      }
+    }
+
+    function renderCalendar() {
+      const calendarGrid = document.getElementById('calendar-grid');
+      calendarGrid.innerHTML = '';
+
+      const now = new Date();
+      const currentYear = 2026;
+      const currentMonthIndex = now.getFullYear() === 2026 ? now.getMonth() : -1;
+
+      for (let i = 0; i < 12; i++) {
+        const monthDiv = document.createElement('div');
+        monthDiv.className = 'calendar-month';
+
+        const monthNameDiv = document.createElement('div');
+        monthNameDiv.className = 'month-name';
+        monthNameDiv.textContent = monthNames[i];
+
+        const monthStatusDiv = document.createElement('div');
+        monthStatusDiv.className = 'month-status';
+
+        const monthKey = `${currentYear}-${i}`;
+        
+        if (monthlyTrophiesCalendar[monthKey]) {
+          monthStatusDiv.textContent = monthlyTrophiesCalendar[monthKey];
+        } else {
+          monthStatusDiv.textContent = '';
+        }
+
+        monthDiv.appendChild(monthNameDiv);
+        monthDiv.appendChild(monthStatusDiv);
+        calendarGrid.appendChild(monthDiv);
+      }
+    }
+
     // ========== FUNÇÕES FIREBASE ==========
     
     function loginWithGoogle() {
@@ -3044,6 +3172,9 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
           totalTrophies: totalTrophies,
           lastPlayDate: lastPlayDate,
           currentMonth: currentMonth,
+          
+          // Calendário de troféus
+          monthlyTrophiesCalendar: monthlyTrophiesCalendar,
           
           // Timestamp
           lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
@@ -3131,6 +3262,8 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
           setTimeout(() => saveToCloud(), 2000);
         } else {
           console.log('Novo jogador - sem save anterior');
+          initializeCalendar();
+          renderCalendar();
           return false;
         }
         
@@ -3139,6 +3272,9 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
         // Carrega progresso do quiz
         currentQuestionIndex = data.currentQuestionIndex || 0;
         errorCount = data.errorCount || 0;
+        
+        // Carrega calendário de troféus
+        monthlyTrophiesCalendar = data.monthlyTrophiesCalendar || {};
         
         // Carrega medalhas e troféus
         const currentDateKey = getDateKey();
@@ -3161,9 +3297,16 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
             const prevMonthDays = prevMonthData.days || 28;
             const requiredMedals = Math.ceil(prevMonthDays * 0.7);
             
+            // Extrai o mês anterior da chave (formato: "YYYY-M")
+            const prevMonthParts = data.currentMonth.split('-');
+            const prevMonthKey = `${prevMonthParts[0]}-${prevMonthParts[1]}`;
+            
             if (prevMonthMedals >= requiredMedals) {
               totalTrophies = (data.totalTrophies || 0) + 1;
+              monthlyTrophiesCalendar[prevMonthKey] = '🏆';
               showCelebration('trophy', prevMonthMedals, prevMonthDays);
+            } else {
+              monthlyTrophiesCalendar[prevMonthKey] = '❌';
             }
           }
           
@@ -3181,6 +3324,10 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
         lastPlayDate = currentDateKey;
         currentMonth = currentMonthKey;
         
+        // Inicializa meses perdidos se não existirem
+        initializeCalendar();
+        renderCalendar();
+        
         console.log('✅ Progresso carregado com sucesso!');
         return true;
         
@@ -3196,6 +3343,9 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
           
           currentQuestionIndex = localData.currentQuestionIndex || 0;
           errorCount = localData.errorCount || 0;
+          
+          // Carrega calendário
+          monthlyTrophiesCalendar = localData.monthlyTrophiesCalendar || {};
           
           const currentDateKey = getDateKey();
           const currentMonthKey = getMonthKey();
@@ -3215,9 +3365,15 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
               const prevMonthDays = prevMonthData.days || 28;
               const requiredMedals = Math.ceil(prevMonthDays * 0.7);
               
+              const prevMonthParts = localData.currentMonth.split('-');
+              const prevMonthKey = `${prevMonthParts[0]}-${prevMonthParts[1]}`;
+              
               if (prevMonthMedals >= requiredMedals) {
                 totalTrophies = (localData.totalTrophies || 0) + 1;
+                monthlyTrophiesCalendar[prevMonthKey] = '🏆';
                 showCelebration('trophy', prevMonthMedals, prevMonthDays);
+              } else {
+                monthlyTrophiesCalendar[prevMonthKey] = '❌';
               }
             }
             
@@ -3235,12 +3391,18 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
           lastPlayDate = currentDateKey;
           currentMonth = currentMonthKey;
           
+          // Inicializa meses perdidos
+          initializeCalendar();
+          renderCalendar();
+          
           // Tenta sincronizar com a nuvem quando possível
           setTimeout(() => saveToCloud(), 3000);
           
           return true;
         } else {
           console.error('❌ Nenhum save encontrado');
+          initializeCalendar();
+          renderCalendar();
           return false;
         }
       }
@@ -3262,6 +3424,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
           totalTrophies: totalTrophies,
           lastPlayDate: lastPlayDate,
           currentMonth: currentMonth,
+          monthlyTrophiesCalendar: monthlyTrophiesCalendar,
           lastUpdate: Date.now()
         };
         
@@ -3299,7 +3462,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
       }
     }
 
-    // ========== FUNÇÕES AUXILIARES (mantém tudo igual) ==========
+    // ========== FUNÇÕES AUXILIARES ==========
     
     function parseQuestions(text) {
       const items = [];
@@ -3418,7 +3581,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
       }
       
       updateMedalsDisplay();
-      saveToCloud(); // ← Salva na nuvem
+      saveToCloud();
     }
 
     function showCelebration(type, medals = 0, days = 0) {
@@ -3446,7 +3609,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
       document.getElementById('celebration-modal').classList.remove('show');
     }
 
-    // ========== FUNÇÕES DO JOGO (mantém tudo igual, só adiciona saveToCloud()) ==========
+    // ========== FUNÇÕES DO JOGO ==========
     
     function initQuiz() {
       questions = parseQuestions(rawQuestionsText);
@@ -3463,7 +3626,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
     function loadQuestion() {
       if (currentQuestionIndex >= questions.length) {
         currentQuestionIndex = 0;
-        saveToCloud(); // ← Salva na nuvem
+        saveToCloud();
       }
       
       currentQuestion = questions[currentQuestionIndex];
@@ -3523,7 +3686,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
       if (hasPendingError) {
         errorCount++;
         updateErrorCounter();
-        saveToCloud(); // ← Salva na nuvem
+        saveToCloud();
         hasPendingError = false;
       } else {
         incrementDailyItems();
@@ -3534,21 +3697,21 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
         currentQuestionIndex = Math.max(0, currentQuestionIndex - 25);
         errorCount = 0;
         updateErrorCounter();
-        saveToCloud(); // ← Salva na nuvem
+        saveToCloud();
         loadQuestion();
         scrollToTop();
         return;
       }
       
       currentQuestionIndex++;
-      saveToCloud(); // ← Salva na nuvem
+      saveToCloud();
       
       if (currentQuestionIndex >= questions.length) {
         alert(`🎉 Parabéns! Você completou todos os ${questions.length} itens!\n\nTotal de erros: ${errorCount}\n\nO jogo será reiniciado para você tentar novamente.`);
         currentQuestionIndex = 0;
         errorCount = 0;
         updateErrorCounter();
-        saveToCloud(); // ← Salva na nuvem
+        saveToCloud();
       }
       
       loadQuestion();
@@ -3560,7 +3723,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
         currentQuestionIndex = 0;
         errorCount = 0;
         updateErrorCounter();
-        saveToCloud(); // ← Salva na nuvem
+        saveToCloud();
         initQuiz();
         scrollToTop();
       }
@@ -3570,7 +3733,6 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
     window.addEventListener('DOMContentLoaded', () => {
       // Espera verificar se o usuário está logado
       auth.onAuthStateChanged(async user => {
-        // ✨ ADICIONA A CLASSE 'loaded' PARA MOSTRAR O CONTAINER ✨
         document.querySelector('.container').classList.add('loaded');
         
         if (!user) {
