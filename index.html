@@ -149,6 +149,19 @@
       font-size: 32px;
     }
 
+    .calendar-history {
+      margin-top: 20px;
+      padding-left: 5px;
+    }
+
+    .history-year {
+      font-size: 16px;
+      font-weight: bold;
+      color: #667eea;
+      margin-bottom: 8px;
+      text-align: left;
+    }
+
     /* ========== JOGO (mantém tudo igual) ========== */
     #game-screen {
       display: none;
@@ -580,6 +593,9 @@
         <div class="calendar-title">ANO 2026</div>
         <div class="calendar-grid" id="calendar-grid">
           <!-- Os meses serão gerados dinamicamente pelo JavaScript -->
+        </div>
+        <div class="calendar-history" id="calendar-history">
+          <!-- Histórico dos anos anteriores será gerado aqui -->
         </div>
       </div>
     </div>
@@ -3053,6 +3069,8 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
     // ========== CALENDÁRIO DE TROFÉUS ==========
     let monthlyTrophiesCalendar = {};
 
+    let yearlyHistory = {}; // Armazena troféus de anos anteriores
+
     const monthNames = [
       'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN',
       'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'
@@ -3099,6 +3117,31 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
         monthDiv.appendChild(monthStatusDiv);
         calendarGrid.appendChild(monthDiv);
       }
+    }
+
+    function renderHistory() {
+      const historyDiv = document.getElementById('calendar-history');
+      historyDiv.innerHTML = '';
+      
+      const now = new Date();
+      const currentYear = now.getFullYear();  // ← MUDE AQUI (era 2026 fixo)
+      const yearsToShow = [currentYear - 1, currentYear - 2];
+      
+      yearsToShow.forEach(year => {
+        let trophyCount = 0;
+        
+        if (yearlyHistory[year]) {
+          trophyCount = yearlyHistory[year];
+        }
+        
+        const percentage = ((trophyCount / 12) * 100).toFixed(1);
+        
+        const yearDiv = document.createElement('div');
+        yearDiv.className = 'history-year';
+        yearDiv.textContent = `ANO ${year}: ${trophyCount}/12 🏆 (${percentage}%)`;
+        
+        historyDiv.appendChild(yearDiv);
+      });
     }
 
     // ========== FUNÇÕES FIREBASE ==========
@@ -3175,6 +3218,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
           
           // Calendário de troféus
           monthlyTrophiesCalendar: monthlyTrophiesCalendar,
+          yearlyHistory: yearlyHistory,
           
           // Timestamp
           lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
@@ -3264,6 +3308,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
           console.log('Novo jogador - sem save anterior');
           initializeCalendar();
           renderCalendar();
+          renderHistory();
           return false;
         }
         
@@ -3275,6 +3320,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
         
         // Carrega calendário de troféus
         monthlyTrophiesCalendar = data.monthlyTrophiesCalendar || {};
+        yearlyHistory = data.yearlyHistory || {};
         
         // Carrega medalhas e troféus
         const currentDateKey = getDateKey();
@@ -3327,6 +3373,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
         // Inicializa meses perdidos se não existirem
         initializeCalendar();
         renderCalendar();
+        renderHistory();
         
         console.log('✅ Progresso carregado com sucesso!');
         return true;
@@ -3346,6 +3393,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
           
           // Carrega calendário
           monthlyTrophiesCalendar = localData.monthlyTrophiesCalendar || {};
+          yearlyHistory = localData.yearlyHistory || {};
           
           const currentDateKey = getDateKey();
           const currentMonthKey = getMonthKey();
@@ -3394,6 +3442,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
           // Inicializa meses perdidos
           initializeCalendar();
           renderCalendar();
+          renderHistory();
           
           // Tenta sincronizar com a nuvem quando possível
           setTimeout(() => saveToCloud(), 3000);
@@ -3403,6 +3452,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
           console.error('❌ Nenhum save encontrado');
           initializeCalendar();
           renderCalendar();
+          renderHistory();
           return false;
         }
       }
@@ -3425,6 +3475,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
           lastPlayDate: lastPlayDate,
           currentMonth: currentMonth,
           monthlyTrophiesCalendar: monthlyTrophiesCalendar,
+          yearlyHistory: yearlyHistory,
           lastUpdate: Date.now()
         };
         
@@ -3620,6 +3671,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
       
       updateErrorCounter();
       updateMedalsDisplay();
+      renderHistory();
       loadQuestion();
     }
 
