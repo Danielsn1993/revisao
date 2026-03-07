@@ -590,7 +590,7 @@
 
       <!-- ========== CALENDÁRIO DE TROFÉUS ========== -->
       <div class="calendar-section">
-        <div class="calendar-title">ANO 2026</div>
+        <div class="calendar-title" id="calendar-title"></div>
         <div class="calendar-grid" id="calendar-grid">
           <!-- Os meses serão gerados dinamicamente pelo JavaScript -->
         </div>
@@ -3091,8 +3091,9 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
       calendarGrid.innerHTML = '';
 
       const now = new Date();
-      const currentYear = 2026;
-      const currentMonthIndex = now.getFullYear() === 2026 ? now.getMonth() : -1;
+      const currentYear = now.getFullYear();
+      document.getElementById('calendar-title').textContent = `ANO ${currentYear}`;
+      const currentMonthIndex = now.getMonth();
 
       for (let i = 0; i < 12; i++) {
         const monthDiv = document.createElement('div');
