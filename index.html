@@ -162,6 +162,15 @@
       text-align: left;
     }
 
+    .calendar-footer {
+      margin-top: 15px;
+      font-size: 14px;
+      font-weight: bold;
+      color: black;
+      text-align: center;
+      line-height: 1.6;
+    }
+
     /* ========== JOGO (mantém tudo igual) ========== */
     #game-screen {
       display: none;
@@ -597,6 +606,11 @@
         <div class="calendar-history" id="calendar-history">
           <!-- Histórico dos anos anteriores será gerado aqui -->
         </div>
+        <div class="calendar-footer">Você precisa acertar 50 itens em um dia para ganhar 1 medalha, podendo acumular os acertos no mesmo dia (exemplo: 100 itens = 2 medalhas, 150 itens 3 medalhas e etc). No dia seguinte, o numero de acertos é zerado às 07h00. Para ganhar o troféu no mês vigente, será necessário ganhar medalhas em 70% dos dias do mês.<br>
+        No mês de 31 dias: 22 medalhas (70% de 31 = 21,7 ≈ 22 dias).<br> 
+        No mês de 30 dias: 21 medalhas (70% de 30 = 21 dias).<br>
+        No mês de 29 dias (fevereiro - ano bissexto): 21 medalhas (70% de 29 = 20,3 ≈ 21 dias).<br>
+        No mês de 28 dias (fevereiro): 20 medalhas (70% de 28 = 19,6 ≈ 20 dias).</div>
       </div>
     </div>
   </div>
