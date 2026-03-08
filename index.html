@@ -3525,6 +3525,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
 
     function hideImagePreview() {
       document.getElementById('image-preview').classList.remove('active');
+      document.body.style.overflow = 'auto';
     }
 
     function showImagePreviewAuto(basePath) {
@@ -3533,6 +3534,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
       const preview = document.getElementById('image-preview');
       const loading = document.getElementById('image-loading');
       loading.classList.add('active');
+      document.body.style.overflow = 'hidden';
       const loadingStartTime = Date.now();
       let hasFinished = false;
       const timeoutId = setTimeout(() => {
@@ -3673,6 +3675,7 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
     }
 
     function nextQuestion() {
+      document.getElementById('image-button-container').style.display = 'none';
       if (hasPendingError) {
         errorCount++;
         updateErrorCounter();
