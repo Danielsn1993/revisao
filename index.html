@@ -11,7 +11,6 @@
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
     }
-
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -19,7 +18,6 @@
       padding: 20px;
       color: #333;
     }
-
     .container {
       max-width: 800px;
       margin: 0 auto;
@@ -31,34 +29,27 @@
       opacity: 0;
       transition: opacity 0.3s ease-in;
     }
-
     .container.loaded {
       opacity: 1;
     }
-
-    /* ========== TELA DE LOGIN ========== */
     #login-screen {
       display: none;
       text-align: center;
       padding: 40px 20px;
     }
-
     #login-screen.active {
       display: block;
     }
-
     #login-screen h1 {
       color: #667eea;
       font-size: 36px;
       margin-bottom: 20px;
     }
-
     #login-screen p {
       font-size: 18px;
       color: #666;
       margin-bottom: 30px;
     }
-
     .btn-login {
       background: linear-gradient(135deg, #667eea, #764ba2);
       color: white;
@@ -70,13 +61,10 @@
       cursor: pointer;
       transition: all 0.3s;
     }
-
     .btn-login:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
     }
-
-    /* ========== BOTÃO SAIR ========== */
     .btn-logout {
       background: #ff4f00;
       color: white;
@@ -90,21 +78,17 @@
       width: 100%;
       transition: all 0.3s;
     }
-
     .btn-logout:hover {
       background: #ff6a00;
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(255, 79, 0, 0.3);
     }
-
-    /* ========== CALENDÁRIO DE TROFÉUS ========== */
     .calendar-section {
       margin-top: 20px;
       padding: 20px;
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       border-radius: 15px;
     }
-
     .calendar-title {
       text-align: center;
       font-size: 24px;
@@ -112,13 +96,11 @@
       color: #667eea;
       margin-bottom: 15px;
     }
-
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 10px;
     }
-
     .calendar-month {
       background: white;
       border: 2px solid #667eea;
@@ -132,28 +114,23 @@
       align-items: center;
       transition: all 0.3s;
     }
-
     .calendar-month:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
-
     .month-name {
       font-size: 12px;
       font-weight: bold;
       color: #667eea;
       margin-bottom: 5px;
     }
-
     .month-status {
       font-size: 32px;
     }
-
     .calendar-history {
       margin-top: 20px;
       padding-left: 5px;
     }
-
     .history-year {
       font-size: 16px;
       font-weight: bold;
@@ -161,7 +138,6 @@
       margin-bottom: 8px;
       text-align: left;
     }
-
     .calendar-footer {
       margin-top: 15px;
       font-size: 14px;
@@ -170,22 +146,17 @@
       text-align: left;
       line-height: 1.6;
     }
-
-    /* ========== JOGO (mantém tudo igual) ========== */
     #game-screen {
       display: none;
     }
-
     #game-screen.active {
       display: block;
     }
-
     .counters-container {
       display: flex;
       gap: 10px;
       margin-bottom: 15px;
     }
-
     .question-counter {
       background: linear-gradient(135deg, #667eea, #764ba2);
       color: white;
@@ -196,7 +167,6 @@
       font-size: 18px;
       flex: 1;
     }
-
     .error-counter {
       background: #ff4f00;
       color: black;
@@ -207,14 +177,12 @@
       font-size: 18px;
       min-width: 120px;
     }
-
     .medals-container {
       display: flex;
       gap: 10px;
       margin-bottom: 15px;
       align-items: stretch;
     }
-
     .daily-progress {
       background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
       color: white;
@@ -224,17 +192,14 @@
       font-weight: bold;
       flex: 1;
     }
-
     .daily-progress-title {
       font-size: 14px;
       margin-bottom: 5px;
       opacity: 0.9;
     }
-
     .daily-progress-count {
       font-size: 24px;
     }
-
     .medals-stats {
       background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
       color: white;
@@ -247,7 +212,6 @@
       flex-direction: column;
       justify-content: center;
     }
-
     .medals-row {
       display: flex;
       justify-content: center;
@@ -255,11 +219,9 @@
       gap: 15px;
       font-size: 28px;
     }
-
     .medal-emoji {
       font-size: 42px;
     }
-
     .trophy-container {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
@@ -273,22 +235,42 @@
       align-items: center;
       gap: 10px;
     }
-
     .trophy-emoji {
       font-size: 42px;
     }
-
     .trophy-count {
       font-size: 28px;
     }
-
     h1 {
       text-align: center;
       color: #667eea;
       margin-bottom: 25px;
       font-size: 32px;
     }
-
+    .image-button-container {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .image-link {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 12px 30px;
+      border-radius: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+    .image-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+    .image-link:active {
+      transform: translateY(0);
+    }
     .question-box {
       background: #f8f9fa;
       border: 2px solid #667eea;
@@ -297,20 +279,17 @@
       margin-bottom: 25px;
       min-height: 150px;
     }
-
     .question-text {
       font-size: 20px;
       line-height: 1.6;
       color: #333;
       margin-bottom: 0;
     }
-
     .buttons-container {
       display: flex;
       gap: 15px;
       margin-bottom: 20px;
     }
-
     button {
       flex: 1;
       padding: 18px 25px;
@@ -323,37 +302,30 @@
       font-family: inherit;
       min-height: 60px;
     }
-
     button:hover:not(:disabled) {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     }
-
     button:active:not(:disabled) {
       transform: translateY(0);
     }
-
     button:disabled {
       opacity: 0.6;
       cursor: not-allowed;
     }
-
     .btn-true {
       background: linear-gradient(135deg, #11998e, #38ef7d);
       color: black;
     }
-
     .btn-false {
       background: linear-gradient(135deg, #eb3349, #f45c43);
       color: black;
     }
-
     .btn-continue {
       background: #667eea;
       color: white;
       width: 100%;
     }
-
     .message-box {
       background: #f8f9fa;
       border: 3px solid;
@@ -364,21 +336,17 @@
       line-height: 1.6;
       display: none;
     }
-
     .message-box.correct {
       border-color: #38ef7d;
       background: #e8f8f0;
     }
-
     .message-box.wrong {
       border-color: #f45c43;
       background: #ffe8e8;
     }
-
     .message-box.show {
       display: block;
     }
-
     .reset-btn {
       background: #764ba2;
       color: white;
@@ -392,12 +360,10 @@
       width: 100%;
       transition: all 0.3s;
     }
-
     .reset-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     }
-
     .celebration-modal {
       display: none;
       position: fixed;
@@ -410,11 +376,9 @@
       justify-content: center;
       align-items: center;
     }
-
     .celebration-modal.show {
       display: flex;
     }
-
     .celebration-content {
       background: white;
       padding: 40px;
@@ -423,25 +387,21 @@
       max-width: 500px;
       animation: bounceIn 0.6s;
     }
-
     .celebration-icon {
       font-size: 80px;
       margin-bottom: 20px;
     }
-
     .celebration-title {
       font-size: 32px;
       color: #667eea;
       margin-bottom: 15px;
       font-weight: bold;
     }
-
     .celebration-text {
       font-size: 20px;
       color: #333;
       margin-bottom: 25px;
     }
-
     .celebration-close {
       background: #667eea;
       color: white;
@@ -452,7 +412,6 @@
       font-weight: bold;
       cursor: pointer;
     }
-
     @keyframes bounceIn {
       0% {
         transform: scale(0.3);
@@ -469,88 +428,135 @@
         opacity: 1;
       }
     }
-
+    .image-preview {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.95);
+      padding: 0;
+      box-shadow: none;
+      border: none;
+      border-radius: 0;
+    }
+    .image-loading {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+    .image-loading.active {
+      display: flex;
+    }
+    .loading-card {
+      background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+      border: 3px solid #ffcc00;
+      border-radius: 10px;
+      padding: 30px 40px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+    }
+    .loading-spinner {
+      font-size: 48px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .loading-card p {
+      color: #fff;
+      font-size: 18px;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .image-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      margin: 0;
+    }
+    .image-preview.active {
+      display: block;
+    }
     @media (max-width: 600px) {
       .container {
         padding: 20px;
       }
-
       .counters-container {
         flex-direction: column;
       }
-
       .medals-container {
         flex-wrap: wrap;
       }
-
       .daily-progress {
         flex: 1 1 100%;
       }
-
       .medals-stats {
         flex: 1 1 calc(50% - 5px);
       }
-
       .trophy-container {
         flex: 1 1 calc(50% - 5px);
       }
-
       h1 {
         font-size: 24px;
       }
-
       .question-text {
         font-size: 18px;
       }
-
       button {
         font-size: 18px;
         padding: 15px 20px;
       }
-
       .buttons-container {
         flex-direction: column;
       }
-
-      /* Layout mobile: 3 colunas */
       .calendar-grid {
         grid-template-columns: repeat(3, 1fr);
       }
-
       .calendar-title {
         font-size: 20px;
       }
-
       .month-name {
         font-size: 11px;
       }
-
       .month-status {
         font-size: 28px;
       }
     }
   </style>
-  
-  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
+  <div id="image-loading" class="image-loading">
+    <div class="loading-card">
+      <div class="loading-spinner">🔄</div>
+      <p>Carregando imagem...</p>
+    </div>
+  </div>
+  <div id="image-preview" class="image-preview" onclick="hideImagePreview()">
+    <img id="preview-img" src="" alt="Preview">
+  </div>
   <div class="container">
-    <!-- ========== TELA DE LOGIN ========== -->
     <div id="login-screen">
       <h1>🎯 VERDADEIRO OU FALSO</h1>
       <p>Faça login para salvar seu progresso na nuvem</p>
-      <button class="btn-login" onclick="loginWithGoogle()">
-        🔐 Entrar com Google
-      </button>
-      <p style="margin-top: 20px; font-size: 14px; color: #999;">
-        Seu progresso, medalhas e troféus serão salvos!
-      </p>
+      <button class="btn-login" onclick="loginWithGoogle()">🔐 Entrar com Google</button>
+      <p style="margin-top: 20px; font-size: 14px; color: #999;">Seu progresso, medalhas e troféus serão salvos!</p>
     </div>
-
-    <!-- ========== JOGO ========== -->
     <div id="game-screen">
       <div class="medals-container">
         <div class="daily-progress">
@@ -567,55 +573,35 @@
           <span class="trophy-count" id="total-trophies">0</span>
         </div>
       </div>
-
       <div class="counters-container">
-        <div class="question-counter" id="question-counter">
-          Item: 1/10
-        </div>
-        <div class="error-counter" id="error-counter">
-          ❌ Erros: 0/5
-        </div>
+        <div class="question-counter" id="question-counter">Item: 1/10</div>
+        <div class="error-counter" id="error-counter">❌ Erros: 0/5</div>
       </div>
-
       <h1>VERDADEIRO OU FALSO</h1>
-
+      <div class="image-button-container" id="image-button-container" style="display: none;">
+        <button class="image-link" id="image-button" onclick="showCurrentImage()">🖼️ VER IMAGEM</button>
+      </div>
       <div class="question-box">
         <p class="question-text" id="question-text">Carregando questão...</p>
       </div>
-
       <div class="message-box" id="message-box"></div>
-
       <div class="buttons-container" id="answer-buttons">
         <button class="btn-true" onclick="checkAnswer(true)">VERDADEIRO</button>
         <button class="btn-false" onclick="checkAnswer(false)">FALSO</button>
       </div>
-
       <div id="continue-buttons" style="display: none;">
         <button class="btn-continue" onclick="nextQuestion()">CONTINUAR</button>
       </div>
-
       <button class="reset-btn" onclick="resetQuiz()">🔄 REINICIAR</button>
       <button class="btn-logout" onclick="logout()">🚪 SAIR</button>
-
-      <!-- ========== CALENDÁRIO DE TROFÉUS ========== -->
       <div class="calendar-section">
         <div class="calendar-title" id="calendar-title"></div>
-        <div class="calendar-grid" id="calendar-grid">
-          <!-- Os meses serão gerados dinamicamente pelo JavaScript -->
-        </div>
-        <div class="calendar-history" id="calendar-history">
-          <!-- Histórico dos anos anteriores será gerado aqui -->
-        </div>
+        <div class="calendar-grid" id="calendar-grid"></div>
+        <div class="calendar-history" id="calendar-history"></div>
       </div>
-      <div class="calendar-footer">Você precisa acertar 50 itens em um dia para ganhar 1 medalha, podendo acumular os acertos no mesmo dia (exemplo: 100 itens = 2 medalhas, 150 itens 3 medalhas e etc). No dia seguinte, o numero de acertos é zerado às 07h00. Para ganhar o troféu no mês vigente, será necessário ganhar medalhas em 70% dos dias do mês.<br>
-        → No mês de 31 dias: 22 medalhas (70% de 31 = 21,7 ≈ 22 dias).<br> 
-        → No mês de 30 dias: 21 medalhas (70% de 30 = 21 dias).<br>
-        → No mês de 29 dias (fevereiro - ano bissexto): 21 medalhas (70% de 29 = 20,3 ≈ 21 dias).<br>
-        → No mês de 28 dias (fevereiro): 20 medalhas (70% de 28 = 19,6 ≈ 20 dias).
-      </div>
+      <div class="calendar-footer">Você precisa acertar 50 itens em um dia para ganhar 1 medalha, podendo acumular os acertos no mesmo dia (exemplo: 100 itens = 2 medalhas, 150 itens 3 medalhas e etc). No dia seguinte, o numero de acertos é zerado às 07h00. Para ganhar o troféu no mês vigente, será necessário ganhar medalhas em 70% dos dias do mês.<br>→ No mês de 31 dias: 22 medalhas (70% de 31 = 21,7 ≈ 22 dias).<br>→ No mês de 30 dias: 21 medalhas (70% de 30 = 21 dias).<br>→ No mês de 29 dias (fevereiro - ano bissexto): 21 medalhas (70% de 29 = 20,3 ≈ 21 dias).<br>→ No mês de 28 dias (fevereiro): 20 medalhas (70% de 28 = 19,6 ≈ 20 dias).</div>
     </div>
   </div>
-
   <div class="celebration-modal" id="celebration-modal">
     <div class="celebration-content">
       <div class="celebration-icon" id="celebration-icon">🎉</div>
@@ -624,9 +610,7 @@
       <button class="celebration-close" onclick="closeCelebration()">CONTINUAR</button>
     </div>
   </div>
-
   <script>
-    // ========== CONFIGURAÇÃO FIREBASE ==========
     const firebaseConfig = {
       apiKey: "AIzaSyAZfMrzMlH01Pmlap8EwamXpzyJ5XWhiFU",
       authDomain: "verdadeiro-ou-falso-839c2.firebaseapp.com",
@@ -636,16 +620,10 @@
       appId: "1:10803777405:web:0ff3bec340f049cf750614",
       measurementId: "G-3CCBQ8GEL1"
     };
-
-    // Inicializar Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
-
-    // Variável para guardar o usuário logado
     let currentUser = null;
-
-    // ========== VARIÁVEIS DO JOGO ==========
     const rawQuestionsText = `
 
 ITEM 1
@@ -786,7 +764,7 @@ EXPLICAÇÃO: Hipertensão e vasoespasmo aumentam a chance de ruptura da placa a
 
 ITEM 18
 
-Os parâmetros normais da carótida interna incluem velocidade de pico sistólica (VPS) < 125, velocidade diastólica final (VDF) < 40-45 e relação das velocidades de pico sistólicas entre as artérias carótidas interna e comum (VPS da ACI/ACC) < 2.
+Os parâmetros normais da carótida interna incluem velocidade de pico sistólico (VPS) < 125, velocidade diastólica final (VDF) < 40-45 e relação das velocidades de pico sistólicas entre as artérias carótidas interna e comum (VPS da ACI/ACC) < 2.
 
 GABARITO: VERDADEIRO
 
@@ -1322,11 +1300,11 @@ EXPLICAÇÃO: A análise do padrão espectral da aorta abdominal possui uma cara
 
 ITEM 85
 
-A velocidade de pico sistólica da aorta abdominal normal varia entre 70 a 140 cm/s, enquanto que nas artérias ilíacas (que possuem o padrão trifásico espectral) varia entre 100 a 140 cm/s.
+A velocidade de pico sistólico da aorta abdominal normal varia entre 70 a 140 cm/s, enquanto que nas artérias ilíacas (que possuem o padrão trifásico espectral) varia entre 100 a 140 cm/s.
 
 GABARITO: VERDADEIRO
 
-EXPLICAÇÃO: A velocidade de pico sistólica da aorta abdominal normal varia entre 70 a 140 cm/s, enquanto que nas artérias ilíacas (que possuem o padrão trifásico espectral) varia entre 100 a 140 cm/s.
+EXPLICAÇÃO: A velocidade de pico sistólico da aorta abdominal normal varia entre 70 a 140 cm/s, enquanto que nas artérias ilíacas (que possuem o padrão trifásico espectral) varia entre 100 a 140 cm/s.
 
 ITEM 86
 
@@ -1666,19 +1644,19 @@ EXPLICAÇÃO: Em relação aos aspectos gerais da avaliação da estenose em um 
 
 ITEM 128
 
-Nas doenças obstrutivas da aorta, estenoses hemodinamicamente significativas são aquelas superiores a 50%, ou seja, a velocidade de pico sistólica (VPS) no segmento estenótico deve ser 2 vezes maior do que o segmento vascular proximal pré-estenótico (à montante).
+Nas doenças obstrutivas da aorta, estenoses hemodinamicamente significativas são aquelas superiores a 50%, ou seja, a velocidade de pico sistólico (VPS) no segmento estenótico deve ser 2 vezes maior do que o segmento vascular proximal pré-estenótico (à montante).
 
 GABARITO: VERDADEIRO
 
-EXPLICAÇÃO: Nas doenças obstrutivas da aorta, estenoses hemodinamicamente significativas são aquelas superiores a 50%, ou seja, a velocidade de pico sistólica (VPS) no segmento estenótico deve ser 2 vezes maior do que o segmento vascular proximal pré-estenótico (à montante).
+EXPLICAÇÃO: Nas doenças obstrutivas da aorta, estenoses hemodinamicamente significativas são aquelas superiores a 50%, ou seja, a velocidade de pico sistólico (VPS) no segmento estenótico deve ser 2 vezes maior do que o segmento vascular proximal pré-estenótico (à montante).
 
 ITEM 129
 
-Nas doenças obstrutivas da aorta, estenoses superior a 70% são aquelas em que a velocidade de pico sistólica (VPS) no segmento estenótico é 3 vezes maior do que o segmento vascular proximal pré-estenótico (à montante).
+Nas doenças obstrutivas da aorta, estenoses superior a 70% são aquelas em que a velocidade de pico sistólico (VPS) no segmento estenótico é 3 vezes maior do que o segmento vascular proximal pré-estenótico (à montante).
 
 GABARITO: VERDADEIRO
 
-EXPLICAÇÃO: Nas doenças obstrutivas da aorta, estenoses superior a 70% são aquelas em que a velocidade de pico sistólica (VPS) no segmento estenótico é 3 vezes maior do que o segmento vascular proximal pré-estenótico (à montante).
+EXPLICAÇÃO: Nas doenças obstrutivas da aorta, estenoses superior a 70% são aquelas em que a velocidade de pico sistólico (VPS) no segmento estenótico é 3 vezes maior do que o segmento vascular proximal pré-estenótico (à montante).
 
 ITEM 130
 
@@ -1802,19 +1780,19 @@ EXPLICAÇÃO: A principal sintomatologia dos pacientes com síndrome do nutcrack
 
 ITEM 145
 
-Na ultrassonografia modo B dos pacientes com síndrome do nutcracker ("quebra nozes"), é possível observar a veia renal esquerda de calibre reduzido até a emergência do túnel aorto-mesentérico, local onde ela dilata e aumenta a velocidade de pico sistólica (VPS).
+Na ultrassonografia modo B dos pacientes com síndrome do nutcracker ("quebra nozes"), é possível observar a veia renal esquerda de calibre reduzido até a emergência do túnel aorto-mesentérico, local onde ela dilata e aumenta a velocidade de pico sistólico (VPS).
 
 GABARITO: FALSO
 
-EXPLICAÇÃO: Na ultrassonografia modo B dos pacientes com síndrome do nutcracker ("quebra nozes"), é possível observar a veia renal esquerda dilatada até a emergência do túnel aorto-mesentérico, local onde ela reduz o calibre e aumenta a velocidade de pico sistólica (VPS).
+EXPLICAÇÃO: Na ultrassonografia modo B dos pacientes com síndrome do nutcracker ("quebra nozes"), é possível observar a veia renal esquerda dilatada até a emergência do túnel aorto-mesentérico, local onde ela reduz o calibre e aumenta a velocidade de pico sistólico (VPS).
 
 ITEM 146
 
-Os 3 principais parâmetros ultrassonográficos modo Doppler dos pacientes com síndrome do nutcracker ("quebra nozes") são: aumento da velocidade de pico sistólica (VPS) > 110 cm/s no ponto estenótico (velocidade arterial), relação das velocidades da veia renal esquerda no segmento pré-estenótico e no segmento estenótico > 4 e relação do calibre/diâmetro da veia renal esquerda no segmento pré-estenótico e no segmento pós-estenótico > 5.
+Os 3 principais parâmetros ultrassonográficos modo Doppler dos pacientes com síndrome do nutcracker ("quebra nozes") são: aumento da velocidade de pico sistólico (VPS) > 110 cm/s no ponto estenótico (velocidade arterial), relação das velocidades da veia renal esquerda no segmento pré-estenótico e no segmento estenótico > 4 e relação do calibre/diâmetro da veia renal esquerda no segmento pré-estenótico e no segmento pós-estenótico > 5.
 
 GABARITO: VERDADEIRO
 
-EXPLICAÇÃO: Os 3 principais parâmetros ultrassonográficos modo Doppler dos pacientes com síndrome do nutcracker ("quebra nozes") são: aumento da velocidade de pico sistólica (VPS) > 110 cm/s no ponto estenótico (velocidade arterial), relação das velocidades da veia renal esquerda no segmento pré-estenótico e no segmento estenótico > 4 e relação do calibre/diâmetro da veia renal esquerda no segmento pré-estenótico e no segmento pós-estenótico > 5.
+EXPLICAÇÃO: Os 3 principais parâmetros ultrassonográficos modo Doppler dos pacientes com síndrome do nutcracker ("quebra nozes") são: aumento da velocidade de pico sistólico (VPS) > 110 cm/s no ponto estenótico (velocidade arterial), relação das velocidades da veia renal esquerda no segmento pré-estenótico e no segmento estenótico > 4 e relação do calibre/diâmetro da veia renal esquerda no segmento pré-estenótico e no segmento pós-estenótico > 5.
 
 ITEM 147
 
@@ -1866,11 +1844,11 @@ EXPLICAÇÃO: O ligamento arqueado mediano forma a margem anterior do hiato aór
 
 ITEM 153
 
-Para correta avaliação ultrassonográfica modo Doppler da síndrome do ligamento arqueado mediano, deve-se medir a velocidade de pico sistólica (VPS) do tronco celíaco na inspiração e na expiração. Se a VPS for superior a 100 cm/s, ou a velocidade diastólica final (VDF) for superior a 35 cm/s, o diagnóstico está feito.
+Para correta avaliação ultrassonográfica modo Doppler da síndrome do ligamento arqueado mediano, deve-se medir a velocidade de pico sistólico (VPS) do tronco celíaco na inspiração e na expiração. Se a VPS for superior a 100 cm/s, ou a velocidade diastólica final (VDF) for superior a 35 cm/s, o diagnóstico está feito.
 
 GABARITO: FALSO
 
-EXPLICAÇÃO: Para correta avaliação ultrassonográfica modo Doppler da síndrome do ligamento arqueado mediano, deve-se medir a velocidade de pico sistólica (VPS) do tronco celíaco na inspiração e na expiração. Se a VPS for superior a 200 cm/s, ou a velocidade diastólica final (VDF) for superior a 55 cm/s, o diagnóstico está feito.
+EXPLICAÇÃO: Para correta avaliação ultrassonográfica modo Doppler da síndrome do ligamento arqueado mediano, deve-se medir a velocidade de pico sistólico (VPS) do tronco celíaco na inspiração e na expiração. Se a VPS for superior a 200 cm/s, ou a velocidade diastólica final (VDF) for superior a 55 cm/s, o diagnóstico está feito.
 
 ITEM 154
 
@@ -1906,11 +1884,11 @@ EXPLICAÇÃO: Em pacientes com status pós-prandial, a artéria mesentérica sup
 
 ITEM 158
 
-Os parâmetros ultrassonográficos modo Doppler de normalidade da artéria mesentérica superior são: velocidade de pico sistólica (VPS) > 275 cm/s e velocidade diastólica final (VDF) > 45 cm/s.
+Os parâmetros ultrassonográficos modo Doppler de normalidade da artéria mesentérica superior são: velocidade de pico sistólico (VPS) > 275 cm/s e velocidade diastólica final (VDF) > 45 cm/s.
 
 GABARITO: VERDADEIRO
 
-EXPLICAÇÃO: Os parâmetros ultrassonográficos modo Doppler de normalidade da artéria mesentérica superior são: velocidade de pico sistólica (VPS) > 275 cm/s e velocidade diastólica final (VDF) > 45 cm/s.
+EXPLICAÇÃO: Os parâmetros ultrassonográficos modo Doppler de normalidade da artéria mesentérica superior são: velocidade de pico sistólico (VPS) > 275 cm/s e velocidade diastólica final (VDF) > 45 cm/s.
 
 ITEM 159
 
@@ -1922,11 +1900,11 @@ EXPLICAÇÃO: A artéria hepática normal, na ultrassonografia modo Doppler, pos
 
 ITEM 160
 
-A artéria hepática normal, na ultrassonografia modo Doppler, possui uma velocidade de pico sistólica (VPS) de 40-80 cm/s, um índice de resistência (IR) de 0,55-0,70 (aumenta no pós-prandial) e um índice de pulsatilidade (IP) de 1,16-1,24.
+A artéria hepática normal, na ultrassonografia modo Doppler, possui uma velocidade de pico sistólico (VPS) de 40-80 cm/s, um índice de resistência (IR) de 0,55-0,70 (aumenta no pós-prandial) e um índice de pulsatilidade (IP) de 1,16-1,24.
 
 GABARITO: VERDADEIRO
 
-EXPLICAÇÃO: A artéria hepática normal, na ultrassonografia modo Doppler, possui uma velocidade de pico sistólica (VPS) de 40-80 cm/s, um índice de resistência (IR) de 0,55-0,70 (aumenta no pós-prandial) e um índice de pulsatilidade (IP) de 1,16-1,24.
+EXPLICAÇÃO: A artéria hepática normal, na ultrassonografia modo Doppler, possui uma velocidade de pico sistólico (VPS) de 40-80 cm/s, um índice de resistência (IR) de 0,55-0,70 (aumenta no pós-prandial) e um índice de pulsatilidade (IP) de 1,16-1,24.
 
 ITEM 161
 
@@ -1978,19 +1956,19 @@ EXPLICAÇÃO: Na avaliação espectral ultrassonográfica modo Doppler das veias
 
 ITEM 167
 
-A veia porta é a união das veias esplênica e mesentérica superior, possuindo normalmente um padrão fásico que varia com a respiração, um fluxo hepatopetal (em direção ao fígado) contínuo e anterógrado.
+A veia porta é a união das veias esplênica e mesentérica superior, possuindo normalmente um padrão fásico que varia com a respiração e um fluxo hepatopetal (em direção ao fígado) contínuo e anterógrado.
 
 GABARITO: VERDADEIRO
 
-EXPLICAÇÃO: A veia porta é a união das veias esplênica e mesentérica superior, possuindo normalmente um padrão fásico que varia com a respiração, um fluxo hepatopetal (em direção ao fígado) contínuo e anterógrado.
+EXPLICAÇÃO: A veia porta é a união das veias esplênica e mesentérica superior, possuindo normalmente um padrão fásico que varia com a respiração e um fluxo hepatopetal (em direção ao fígado) contínuo e anterógrado.
 
 ITEM 168
 
-A veia porta normal é responsável por 70% do suprimento sanguíneo do fígado, apresentando um calibre de até 2,5 cm (aumentando na expiração) e uma velocidade de pico sistólica (VPS) de 16-40 cm/s (aumentando na inspiração).
+A veia porta normal é responsável por 70% do suprimento sanguíneo do fígado, apresentando um calibre de até 2,5 cm (aumentando na expiração) e uma velocidade de pico sistólico (VPS) de 16-40 cm/s (aumentando na inspiração).
 
 GABARITO: FALSO
 
-EXPLICAÇÃO: A veia porta normal é responsável por 70% do suprimento sanguíneo do fígado, apresentando um calibre de até 1,2 cm (aumentando na inspiração) e uma velocidade de pico sistólica (VPS) de 16-40 cm/s (diminuindo na inspiração).
+EXPLICAÇÃO: A veia porta normal é responsável por 70% do suprimento sanguíneo do fígado, apresentando um calibre de até 1,2 cm (aumentando na inspiração) e uma velocidade de pico sistólico (VPS) de 16-40 cm/s (diminuindo na inspiração).
 
 ITEM 169
 
@@ -2002,7 +1980,7 @@ EXPLICAÇÃO: As veias esplênica e mesentérica superior possuem um calibre nor
 
 ITEM 170
 
-A principal indicação da realização da ultrassonografia modo Doppler do sistema porta é avaliar hipertensão portal, que por definição é o redução da resistência ao fluxo portal. Como principais causas, estão a cirrose (90% dos casos) e a esquistossomose.
+A principal indicação da realização da ultrassonografia modo Doppler do sistema porta é avaliar hipertensão portal, que por definição é a redução da resistência ao fluxo portal. Como principais causas, estão a cirrose (90% dos casos) e a esquistossomose.
 
 GABARITO: FALSO
 
@@ -2090,11 +2068,11 @@ EXPLICAÇÃO: Existem várias diferenças entre a esquistossomose e a cirrose, a
 
 ITEM 181
 
-Existem várias diferenças entre a esquistossomose e a cirrose, as duas principais entidades patológicas causadoras de hipertensão portal. Na esquistossomose, o parênquima hepático é menor acometido, preservando a complacência, enquanto que na cirrose há endurecimento do parênquima.
+Existem várias diferenças entre a esquistossomose e a cirrose, as duas principais entidades patológicas causadoras de hipertensão portal. Na esquistossomose, o parênquima hepático é menos acometido, preservando a complacência, enquanto que na cirrose há endurecimento do parênquima.
 
 GABARITO: VERDADEIRO
 
-EXPLICAÇÃO: Existem várias diferenças entre a esquistossomose e a cirrose, as duas principais entidades patológicas causadoras de hipertensão portal. Na esquistossomose, o parênquima hepático é menor acometido, preservando a complacência, enquanto que na cirrose há endurecimento do parênquima.
+EXPLICAÇÃO: Existem várias diferenças entre a esquistossomose e a cirrose, as duas principais entidades patológicas causadoras de hipertensão portal. Na esquistossomose, o parênquima hepático é menos acometido, preservando a complacência, enquanto que na cirrose há endurecimento do parênquima.
 
 ITEM 182
 
@@ -2106,11 +2084,11 @@ EXPLICAÇÃO: Na esquistossomose, a veia porta tende a manter a sua velocidade d
 
 ITEM 183
 
-Na cirrose, os sinais de hipertensão portal são mais acentuados que a esquistossomose, a trombose da veia porta é mais frequente e há fluxo compensatório pela artéria hepática com consequente aumento do calibre e da velocidade de pico sistólica (VPS).
+Na cirrose, os sinais de hipertensão portal são mais acentuados que a esquistossomose, a trombose da veia porta é mais frequente e há fluxo compensatório pela artéria hepática com consequente aumento do calibre e da velocidade de pico sistólico (VPS).
 
 GABARITO: VERDADEIRO
 
-EXPLICAÇÃO: Na cirrose, os sinais de hipertensão portal são mais acentuados que a esquistossomose, a trombose da veia porta é mais frequente e há fluxo compensatório pela artéria hepática com consequente aumento do calibre e da velocidade de pico sistólica (VPS).
+EXPLICAÇÃO: Na cirrose, os sinais de hipertensão portal são mais acentuados que a esquistossomose, a trombose da veia porta é mais frequente e há fluxo compensatório pela artéria hepática com consequente aumento do calibre e da velocidade de pico sistólico (VPS).
 
 ITEM 184
 
@@ -2394,11 +2372,11 @@ EXPLICAÇÃO: Na trombose da artéria hepática crônica (> 15 dias do pós-oper
 
 ITEM 219
 
-A estenose da artéria hepática é a segunda complicação vascular mais comum de pacientes submetidos ao transplante hepático. Há 3 critérios ultrassonográficos diagnósticos dessa entidade patológica: velocidade de pico sistólica (VPS) na anastomose > 200 cm/s ou relação da VPS no segmento estenótico sobre o segmento pré-estenótico > 3, padrão espectral tardus parvus e índice de resistência < 0,5.
+A estenose da artéria hepática é a segunda complicação vascular mais comum de pacientes submetidos ao transplante hepático. Há 3 critérios ultrassonográficos diagnósticos dessa entidade patológica: velocidade de pico sistólico (VPS) na anastomose > 200 cm/s ou relação da VPS no segmento estenótico sobre o segmento pré-estenótico > 3, padrão espectral tardus parvus e índice de resistência < 0,5.
 
 GABARITO: VERDADEIRO
 
-EXPLICAÇÃO: A estenose da artéria hepática é a segunda complicação vascular mais comum de pacientes submetidos ao transplante hepático. Há 3 critérios ultrassonográficos diagnósticos dessa entidade patológica: velocidade de pico sistólica (VPS) na anastomose > 200 cm/s ou relação da VPS no segmento estenótico sobre o segmento pré-estenótico > 3, padrão espectral tardus parvus e índice de resistência < 0,5.
+EXPLICAÇÃO: A estenose da artéria hepática é a segunda complicação vascular mais comum de pacientes submetidos ao transplante hepático. Há 3 critérios ultrassonográficos diagnósticos dessa entidade patológica: velocidade de pico sistólico (VPS) na anastomose > 200 cm/s ou relação da VPS no segmento estenótico sobre o segmento pré-estenótico > 3, padrão espectral tardus parvus e índice de resistência < 0,5.
 
 ITEM 220
 
@@ -3065,7 +3043,6 @@ GABARITO: FALSO
 EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de contraste venoso em um segmento calicinal renal, apenas na fase tardia/excretora, deve-se aventar a possibilidade diagnóstica de divertículo calicinal.
 
 `;
-
     let questions = [];
     let currentQuestionIndex = 0;
     let currentQuestion = null;
@@ -3073,62 +3050,46 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
     const MAX_ERRORS = 5;
     let lastAnswerWasWrong = false;
     let hasPendingError = false;
-
-    // Sistema de medalhas e troféus
+    let currentImagePath = null;
     let dailyItemsCompleted = 0;
     let monthlyGoldMedals = 0;
     let totalTrophies = 0;
     let lastPlayDate = null;
     let currentMonth = null;
-
-    // ========== CALENDÁRIO DE TROFÉUS ==========
     let monthlyTrophiesCalendar = {};
-
-    let yearlyHistory = {}; // Armazena troféus de anos anteriores
-
-    const monthNames = [
-      'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN',
-      'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'
-    ];
+    let yearlyHistory = {};
+    const monthNames = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'];
 
     function initializeCalendar() {
-      // Inicializa o calendário com os meses perdidos (janeiro e fevereiro)
       if (!monthlyTrophiesCalendar['2026-0']) {
-        monthlyTrophiesCalendar['2026-0'] = '❌'; // Janeiro
+        monthlyTrophiesCalendar['2026-0'] = '❌';
       }
       if (!monthlyTrophiesCalendar['2026-1']) {
-        monthlyTrophiesCalendar['2026-1'] = '❌'; // Fevereiro
+        monthlyTrophiesCalendar['2026-1'] = '❌';
       }
     }
 
     function renderCalendar() {
       const calendarGrid = document.getElementById('calendar-grid');
       calendarGrid.innerHTML = '';
-
       const now = new Date();
       const currentYear = now.getFullYear();
       document.getElementById('calendar-title').textContent = `ANO ${currentYear}`;
       const currentMonthIndex = now.getMonth();
-
       for (let i = 0; i < 12; i++) {
         const monthDiv = document.createElement('div');
         monthDiv.className = 'calendar-month';
-
         const monthNameDiv = document.createElement('div');
         monthNameDiv.className = 'month-name';
         monthNameDiv.textContent = monthNames[i];
-
         const monthStatusDiv = document.createElement('div');
         monthStatusDiv.className = 'month-status';
-
         const monthKey = `${currentYear}-${i}`;
-        
         if (monthlyTrophiesCalendar[monthKey]) {
           monthStatusDiv.textContent = monthlyTrophiesCalendar[monthKey];
         } else {
           monthStatusDiv.textContent = '';
         }
-
         monthDiv.appendChild(monthNameDiv);
         monthDiv.appendChild(monthStatusDiv);
         calendarGrid.appendChild(monthDiv);
@@ -3138,67 +3099,48 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
     function renderHistory() {
       const historyDiv = document.getElementById('calendar-history');
       historyDiv.innerHTML = '';
-      
       const now = new Date();
-      const currentYear = now.getFullYear();  // ← MUDE AQUI (era 2026 fixo)
+      const currentYear = now.getFullYear();
       const yearsToShow = [currentYear - 1, currentYear - 2];
-      
       yearsToShow.forEach(year => {
         let trophyCount = 0;
-        
         if (yearlyHistory[year]) {
           trophyCount = yearlyHistory[year];
         }
-        
         const percentage = ((trophyCount / 12) * 100).toFixed(1);
-        
         const yearDiv = document.createElement('div');
         yearDiv.className = 'history-year';
         yearDiv.textContent = `ANO ${year}: ${trophyCount}/12 🏆 (${percentage}%)`;
-        
         historyDiv.appendChild(yearDiv);
       });
     }
 
-    // ========== FUNÇÕES FIREBASE ==========
-    
     function loginWithGoogle() {
       const provider = new firebase.auth.GoogleAuthProvider();
-      
-      auth.signInWithPopup(provider)
-        .then(async (result) => {
-          currentUser = result.user;
-          console.log('✅ Login realizado:', currentUser.displayName);
-          
-          // Carrega dados da nuvem
-          await loadFromCloud();
-          
-          // Mostra o jogo
-          showScreen('game-screen');
-        })
-        .catch((error) => {
-          console.error('❌ Erro no login:', error);
-          alert('Erro ao fazer login. Tente novamente.');
-        });
+      auth.signInWithPopup(provider).then(async (result) => {
+        currentUser = result.user;
+        console.log('✅ Login realizado:', currentUser.displayName);
+        await loadFromCloud();
+        showScreen('game-screen');
+      }).catch((error) => {
+        console.error('❌ Erro no login:', error);
+        alert('Erro ao fazer login. Tente novamente.');
+      });
     }
 
     function logout() {
       if (confirm('Deseja sair da sua conta? Seu progresso está salvo.')) {
-        // Limpa localStorage do usuário atual
         if (currentUser) {
           const key = `tfGameData_${currentUser.uid}`;
           localStorage.removeItem(key);
         }
-        
-        auth.signOut()
-          .then(() => {
-            showScreen('login-screen');
-            location.reload();
-          })
-          .catch((error) => {
-            console.error('Erro ao fazer logout:', error);
-            alert('Erro ao sair. Tente novamente.');
-          });
+        auth.signOut().then(() => {
+          showScreen('login-screen');
+          location.reload();
+        }).catch((error) => {
+          console.error('Erro ao fazer logout:', error);
+          alert('Erro ao sair. Tente novamente.');
+        });
       }
     }
 
@@ -3208,102 +3150,64 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
       document.getElementById(screenId).classList.add('active');
     }
 
-    // ========== SALVAR NA NUVEM ==========
     async function saveToCloud() {
       if (!currentUser) {
         console.warn('⚠️ Tentativa de salvar sem usuário logado');
         saveToLocalStorage();
         return false;
       }
-      
       try {
         const saveData = {
           displayName: currentUser.displayName,
           email: currentUser.email,
-          
-          // Progresso do quiz
           currentQuestionIndex: currentQuestionIndex,
           errorCount: errorCount,
-          
-          // Medalhas e troféus
           dailyItemsCompleted: dailyItemsCompleted,
           monthlyGoldMedals: monthlyGoldMedals,
           totalTrophies: totalTrophies,
           lastPlayDate: lastPlayDate,
           currentMonth: currentMonth,
-          
-          // Calendário de troféus
           monthlyTrophiesCalendar: monthlyTrophiesCalendar,
           yearlyHistory: yearlyHistory,
-          
-          // Timestamp
           lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
         };
-        
-        // Tenta salvar no Firebase com timeout de 5 segundos
         const savePromise = db.collection('truefalse_players').doc(currentUser.uid).set(saveData, { merge: true });
-        const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Timeout')), 5000)
-        );
-        
+        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 5000));
         await Promise.race([savePromise, timeoutPromise]);
         console.log('✅ Progresso salvo na nuvem!');
-        
-        // Salva também no localStorage como backup
         saveToLocalStorage();
-        
         return true;
       } catch (error) {
         console.error('❌ Erro ao salvar na nuvem:', error);
         console.log('💾 Salvando backup no localStorage...');
-        
-        // Se falhar, salva no localStorage
         saveToLocalStorage();
         return false;
       }
     }
 
-    // ========== CARREGAR DA NUVEM ==========
     async function loadFromCloud() {
       if (!currentUser) {
         console.error('Usuário não está logado');
         return false;
       }
-      
       try {
-        // Tenta carregar do Firebase com timeout de 5 segundos
         const docPromise = db.collection('truefalse_players').doc(currentUser.uid).get();
-        const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Timeout')), 5000)
-        );
-        
+        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 5000));
         const doc = await Promise.race([docPromise, timeoutPromise]);
-        
         let cloudData = null;
         let localData = null;
-        
-        // Carrega dados da nuvem
         if (doc.exists) {
           cloudData = doc.data();
           console.log('☁️ Save encontrado na nuvem');
         }
-        
-        // Carrega dados do localStorage
         localData = loadFromLocalStorage();
-        
-        // Decide qual usar (o mais recente)
         let dataToUse = null;
-        
         if (cloudData && localData) {
-          // Tem os dois - usa o mais recente
           const cloudTime = cloudData.lastUpdate ? cloudData.lastUpdate.toMillis() : 0;
           const localTime = localData.lastUpdate || 0;
-          
           if (localTime > cloudTime) {
             console.log('📂 Usando backup LOCAL (mais recente)');
             dataToUse = localData;
-            
-            // Sincroniza o localStorage com a nuvem
             console.log('🔄 Sincronizando backup local com a nuvem...');
             setTimeout(() => saveToCloud(), 2000);
           } else {
@@ -3316,8 +3220,6 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
         } else if (localData) {
           console.log('📂 Usando backup local');
           dataToUse = localData;
-          
-          // Tenta sincronizar com a nuvem
           console.log('🔄 Sincronizando com a nuvem...');
           setTimeout(() => saveToCloud(), 2000);
         } else {
@@ -3327,22 +3229,13 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
           renderHistory();
           return false;
         }
-        
         const data = dataToUse;
-        
-        // Carrega progresso do quiz
         currentQuestionIndex = data.currentQuestionIndex || 0;
         errorCount = data.errorCount || 0;
-        
-        // Carrega calendário de troféus
         monthlyTrophiesCalendar = data.monthlyTrophiesCalendar || {};
         yearlyHistory = data.yearlyHistory || {};
-        
-        // Carrega medalhas e troféus
         const currentDateKey = getDateKey();
         const currentMonthKey = getMonthKey();
-        
-        // Verifica se mudou o dia
         if (data.lastPlayDate !== currentDateKey) {
           const medalsEarned = Math.floor(data.dailyItemsCompleted / 50);
           monthlyGoldMedals = (data.monthlyGoldMedals || 0) + medalsEarned;
@@ -3350,19 +3243,14 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
         } else {
           dailyItemsCompleted = data.dailyItemsCompleted || 0;
         }
-        
-        // Verifica se mudou o mês
         if (data.currentMonth !== currentMonthKey) {
           if (data.currentMonth) {
             const prevMonthData = JSON.parse(localStorage.getItem('tfPrevMonth') || '{}');
             const prevMonthMedals = prevMonthData.medals || 0;
             const prevMonthDays = prevMonthData.days || 28;
             const requiredMedals = Math.ceil(prevMonthDays * 0.7);
-            
-            // Extrai o mês anterior da chave (formato: "YYYY-M")
             const prevMonthParts = data.currentMonth.split('-');
             const prevMonthKey = `${prevMonthParts[0]}-${prevMonthParts[1]}`;
-            
             if (prevMonthMedals >= requiredMedals) {
               totalTrophies = (data.totalTrophies || 0) + 1;
               monthlyTrophiesCalendar[prevMonthKey] = '🏆';
@@ -3371,49 +3259,34 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
               monthlyTrophiesCalendar[prevMonthKey] = '❌';
             }
           }
-          
           localStorage.setItem('tfPrevMonth', JSON.stringify({
             medals: data.monthlyGoldMedals || 0,
             days: getDaysInMonth()
           }));
-          
           monthlyGoldMedals = 0;
         } else {
           monthlyGoldMedals = data.monthlyGoldMedals || 0;
         }
-        
         totalTrophies = data.totalTrophies || 0;
         lastPlayDate = currentDateKey;
         currentMonth = currentMonthKey;
-        
-        // Inicializa meses perdidos se não existirem
         initializeCalendar();
         renderCalendar();
         renderHistory();
-        
         console.log('✅ Progresso carregado com sucesso!');
         return true;
-        
       } catch (error) {
         console.error('❌ Erro ao carregar da nuvem:', error);
         console.log('📂 Tentando carregar do localStorage...');
-        
-        // Se falhar, tenta carregar do localStorage
         const localData = loadFromLocalStorage();
-        
         if (localData) {
           console.log('✅ Backup local carregado!');
-          
           currentQuestionIndex = localData.currentQuestionIndex || 0;
           errorCount = localData.errorCount || 0;
-          
-          // Carrega calendário
           monthlyTrophiesCalendar = localData.monthlyTrophiesCalendar || {};
           yearlyHistory = localData.yearlyHistory || {};
-          
           const currentDateKey = getDateKey();
           const currentMonthKey = getMonthKey();
-          
           if (localData.lastPlayDate !== currentDateKey) {
             const medalsEarned = Math.floor(localData.dailyItemsCompleted / 50);
             monthlyGoldMedals = (localData.monthlyGoldMedals || 0) + medalsEarned;
@@ -3421,17 +3294,14 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
           } else {
             dailyItemsCompleted = localData.dailyItemsCompleted || 0;
           }
-          
           if (localData.currentMonth !== currentMonthKey) {
             if (localData.currentMonth) {
               const prevMonthData = JSON.parse(localStorage.getItem('tfPrevMonth') || '{}');
               const prevMonthMedals = prevMonthData.medals || 0;
               const prevMonthDays = prevMonthData.days || 28;
               const requiredMedals = Math.ceil(prevMonthDays * 0.7);
-              
               const prevMonthParts = localData.currentMonth.split('-');
               const prevMonthKey = `${prevMonthParts[0]}-${prevMonthParts[1]}`;
-              
               if (prevMonthMedals >= requiredMedals) {
                 totalTrophies = (localData.totalTrophies || 0) + 1;
                 monthlyTrophiesCalendar[prevMonthKey] = '🏆';
@@ -3440,29 +3310,21 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
                 monthlyTrophiesCalendar[prevMonthKey] = '❌';
               }
             }
-            
             localStorage.setItem('tfPrevMonth', JSON.stringify({
               medals: localData.monthlyGoldMedals || 0,
               days: getDaysInMonth()
             }));
-            
             monthlyGoldMedals = 0;
           } else {
             monthlyGoldMedals = localData.monthlyGoldMedals || 0;
           }
-          
           totalTrophies = localData.totalTrophies || 0;
           lastPlayDate = currentDateKey;
           currentMonth = currentMonthKey;
-          
-          // Inicializa meses perdidos
           initializeCalendar();
           renderCalendar();
           renderHistory();
-          
-          // Tenta sincronizar com a nuvem quando possível
           setTimeout(() => saveToCloud(), 3000);
-          
           return true;
         } else {
           console.error('❌ Nenhum save encontrado');
@@ -3474,13 +3336,11 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
       }
     }
 
-    // ========== LOCALSTORAGE (BACKUP) ==========
     function saveToLocalStorage() {
       if (!currentUser) {
         console.warn('⚠️ Tentativa de salvar no localStorage sem usuário');
         return false;
       }
-      
       try {
         const saveData = {
           currentQuestionIndex: currentQuestionIndex,
@@ -3494,7 +3354,6 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
           yearlyHistory: yearlyHistory,
           lastUpdate: Date.now()
         };
-        
         const key = `tfGameData_${currentUser.uid}`;
         localStorage.setItem(key, JSON.stringify(saveData));
         console.log(`💾 Backup salvo no localStorage para ${currentUser.displayName}`);
@@ -3510,16 +3369,13 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
         console.warn('⚠️ Tentativa de carregar do localStorage sem usuário');
         return null;
       }
-      
       try {
         const key = `tfGameData_${currentUser.uid}`;
         const savedData = localStorage.getItem(key);
-        
         if (!savedData) {
           console.log('📂 Nenhum backup local encontrado para este usuário');
           return null;
         }
-        
         const data = JSON.parse(savedData);
         console.log(`📂 Backup encontrado no localStorage para ${currentUser.displayName}`);
         return data;
@@ -3529,57 +3385,47 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
       }
     }
 
-    // ========== FUNÇÕES AUXILIARES ==========
-    
     function parseQuestions(text) {
       const items = [];
       const itemPattern = /ITEM (\d+)/g;
       const matches = [...text.matchAll(itemPattern)];
       const itemBlocks = text.split(/ITEM \d+/).filter(block => block.trim());
-      
       itemBlocks.forEach((block, index) => {
         const lines = block.trim().split('\n').filter(line => line.trim());
         if (lines.length < 3) return;
-        
         let questionText = '';
         let answer = null;
         let explanation = '';
         let isReadingExplanation = false;
-        
         lines.forEach(line => {
           line = line.trim();
-          
           if (line.toUpperCase().startsWith('GABARITO:')) {
             const answerText = line.split(':')[1].trim().toUpperCase();
             answer = answerText === 'VERDADEIRO';
             return;
           }
-          
           if (line.toUpperCase().startsWith('EXPLICAÇÃO:')) {
             isReadingExplanation = true;
             explanation = line.substring(line.indexOf(':') + 1).trim();
             return;
           }
-          
           if (isReadingExplanation) {
             explanation += (explanation ? ' ' : '') + line;
             return;
           }
-          
           if (!line.toUpperCase().startsWith('ITEM') && answer === null) {
             questionText += (questionText ? ' ' : '') + line;
           }
         });
-        
         if (questionText && answer !== null) {
           items.push({
             text: questionText,
             answer: answer,
-            explanation: explanation
+            explanation: explanation,
+            itemNumber: index + 1
           });
         }
       });
-      
       return items;
     }
 
@@ -3603,7 +3449,6 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
       let day = now.getDate();
       let month = now.getMonth();
       let year = now.getFullYear();
-      
       if (now.getHours() < 7) {
         const yesterday = new Date(now);
         yesterday.setDate(yesterday.getDate() - 1);
@@ -3611,7 +3456,6 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
         month = yesterday.getMonth();
         year = yesterday.getFullYear();
       }
-      
       return `${year}-${month}-${day}`;
     }
 
@@ -3641,12 +3485,10 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
 
     function incrementDailyItems() {
       dailyItemsCompleted++;
-      
       if (dailyItemsCompleted % 50 === 0) {
         monthlyGoldMedals++;
         showCelebration('medal');
       }
-      
       updateMedalsDisplay();
       saveToCloud();
     }
@@ -3656,7 +3498,6 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
       const icon = document.getElementById('celebration-icon');
       const title = document.getElementById('celebration-title');
       const text = document.getElementById('celebration-text');
-      
       if (type === 'medal') {
         icon.textContent = '🥇';
         title.textContent = 'MEDALHA DE OURO!';
@@ -3668,7 +3509,6 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
         const requiredMedals = Math.ceil(days * 0.7);
         text.textContent = `Incrível! Você conquistou ${medals} medalhas de ouro neste mês e ganhou um troféu!`;
       }
-      
       modal.classList.add('show');
     }
 
@@ -3676,15 +3516,101 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
       document.getElementById('celebration-modal').classList.remove('show');
     }
 
-    // ========== FUNÇÕES DO JOGO ==========
-    
+    function showImagePreview(url) {
+      const preview = document.getElementById('image-preview');
+      const img = document.getElementById('preview-img');
+      img.src = url;
+      preview.classList.add('active');
+    }
+
+    function hideImagePreview() {
+      document.getElementById('image-preview').classList.remove('active');
+    }
+
+    function showImagePreviewAuto(basePath) {
+      const extensions = ['.png', '.jpg', '.jpeg'];
+      const img = document.getElementById('preview-img');
+      const preview = document.getElementById('image-preview');
+      const loading = document.getElementById('image-loading');
+      loading.classList.add('active');
+      const loadingStartTime = Date.now();
+      let hasFinished = false;
+      const timeoutId = setTimeout(() => {
+        if (!hasFinished) {
+          hasFinished = true;
+          const elapsed = Date.now() - loadingStartTime;
+          const remainingTime = Math.max(0, 300 - elapsed);
+          setTimeout(() => {
+            loading.classList.remove('active');
+            alert('Erro ao carregar imagem. Pode ser que a sua internet esteja lenta. Tente novamente.');
+          }, remainingTime);
+        }
+      }, 7000);
+      function tryExtension(index) {
+        if (index >= extensions.length) {
+          clearTimeout(timeoutId);
+          if (!hasFinished) {
+            hasFinished = true;
+            const elapsed = Date.now() - loadingStartTime;
+            const remainingTime = Math.max(0, 300 - elapsed);
+            setTimeout(() => {
+              loading.classList.remove('active');
+              alert('Imagem não encontrada!');
+            }, remainingTime);
+          }
+          return;
+        }
+        img.src = basePath + extensions[index];
+        img.onerror = function() {
+          tryExtension(index + 1);
+        };
+        img.onload = function() {
+          clearTimeout(timeoutId);
+          if (!hasFinished) {
+            hasFinished = true;
+            const elapsed = Date.now() - loadingStartTime;
+            const remainingTime = Math.max(0, 300 - elapsed);
+            setTimeout(() => {
+              loading.classList.remove('active');
+              preview.classList.add('active');
+            }, remainingTime);
+          }
+        };
+      }
+      tryExtension(0);
+    }
+
+    function showCurrentImage() {
+      if (currentImagePath) {
+        showImagePreviewAuto(currentImagePath);
+      }
+    }
+
+    function checkImageExists(itemNumber, callback) {
+      const extensions = ['.png', '.jpg', '.jpeg'];
+      const basePath = `imagens/item${itemNumber}`;
+      function tryExtension(index) {
+        if (index >= extensions.length) {
+          callback(false, null);
+          return;
+        }
+        const img = new Image();
+        img.onload = function() {
+          callback(true, basePath);
+        };
+        img.onerror = function() {
+          tryExtension(index + 1);
+        };
+        img.src = basePath + extensions[index];
+      }
+      tryExtension(0);
+    }
+
     function initQuiz() {
       questions = parseQuestions(rawQuestionsText);
-      
       if (currentQuestionIndex >= questions.length) {
         currentQuestionIndex = 0;
       }
-      
       updateErrorCounter();
       updateMedalsDisplay();
       renderHistory();
@@ -3696,19 +3622,24 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
         currentQuestionIndex = 0;
         saveToCloud();
       }
-      
       currentQuestion = questions[currentQuestionIndex];
       lastAnswerWasWrong = false;
       hasPendingError = false;
-      
+      checkImageExists(currentQuestion.itemNumber, function(exists, path) {
+        const imageContainer = document.getElementById('image-button-container');
+        if (exists) {
+          currentImagePath = path;
+          imageContainer.style.display = 'block';
+        } else {
+          currentImagePath = null;
+          imageContainer.style.display = 'none';
+        }
+      });
       document.getElementById('question-text').textContent = currentQuestion.text;
-      document.getElementById('question-counter').textContent = 
-        `Item: ${currentQuestionIndex + 1}/${questions.length}`;
-      
+      document.getElementById('question-counter').textContent = `Item: ${currentQuestionIndex + 1}/${questions.length}`;
       document.getElementById('message-box').classList.remove('show');
       document.getElementById('answer-buttons').style.display = 'flex';
       document.getElementById('continue-buttons').style.display = 'none';
-      
       const buttons = document.querySelectorAll('#answer-buttons button');
       buttons.forEach(btn => btn.disabled = false);
     }
@@ -3716,16 +3647,12 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
     function checkAnswer(userAnswer) {
       const buttons = document.querySelectorAll('#answer-buttons button');
       buttons.forEach(btn => btn.disabled = true);
-      
       const messageBox = document.getElementById('message-box');
       const isCorrect = userAnswer === currentQuestion.answer;
       const correctText = currentQuestion.answer ? 'VERDADEIRO' : 'FALSO';
-      
       messageBox.classList.remove('correct', 'wrong');
       messageBox.classList.add(isCorrect ? 'correct' : 'wrong');
-      
       let messageHTML = '';
-      
       if (isCorrect) {
         messageHTML = `✅ <strong>CORRETO!</strong><br><br>`;
         lastAnswerWasWrong = false;
@@ -3734,19 +3661,14 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
         hasPendingError = true;
         messageHTML = `❌ <strong>ERRADO!</strong><br><br>`;
       }
-      
       messageHTML += `<strong>Gabarito:</strong> ${correctText}`;
-      
       if (currentQuestion.explanation && currentQuestion.explanation.trim() !== '') {
         messageHTML += `<br><br><strong>Explicação:</strong> ${currentQuestion.explanation}`;
       }
-      
       messageBox.innerHTML = messageHTML;
       messageBox.classList.add('show');
-      
       document.getElementById('answer-buttons').style.display = 'none';
       document.getElementById('continue-buttons').style.display = 'block';
-      
       setTimeout(scrollToMessage, 100);
     }
 
@@ -3759,7 +3681,6 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
       } else {
         incrementDailyItems();
       }
-      
       if (errorCount >= MAX_ERRORS) {
         alert(`❌ Você atingiu ${MAX_ERRORS} erros!\n\nVoltaremos 25 itens para você tentar novamente.`);
         currentQuestionIndex = Math.max(0, currentQuestionIndex - 25);
@@ -3770,10 +3691,8 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
         scrollToTop();
         return;
       }
-      
       currentQuestionIndex++;
       saveToCloud();
-      
       if (currentQuestionIndex >= questions.length) {
         alert(`🎉 Parabéns! Você completou todos os ${questions.length} itens!\n\nTotal de erros: ${errorCount}\n\nO jogo será reiniciado para você tentar novamente.`);
         currentQuestionIndex = 0;
@@ -3781,7 +3700,6 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
         updateErrorCounter();
         saveToCloud();
       }
-      
       loadQuestion();
       scrollToTop();
     }
@@ -3797,27 +3715,17 @@ EXPLICAÇÃO: Em pacientes que possuem uma imagem com hiperrrealce pelo meio de 
       }
     }
 
-    // ========== INICIALIZAÇÃO ==========
     window.addEventListener('DOMContentLoaded', () => {
-      // Espera verificar se o usuário está logado
       auth.onAuthStateChanged(async user => {
         document.querySelector('.container').classList.add('loaded');
-        
         if (!user) {
           showScreen('login-screen');
           return;
         }
-        
         currentUser = user;
         console.log('✅ Usuário logado:', user.displayName);
-        
-        // Carrega dados da nuvem
         await loadFromCloud();
-        
-        // Mostra o jogo
         showScreen('game-screen');
-        
-        // Inicializa o quiz
         initQuiz();
       });
     });
