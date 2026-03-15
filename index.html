@@ -4493,22 +4493,48 @@ EXPLICAÇÃO: O vídeo mostra uma tomografia computadorizada do abdome com contr
     }
 
     function checkImageExists(itemNumber, callback) {
-      const extensions = ['.png', '.jpg', '.jpeg'];
+      const extensions = [
+        '.png', '.jpg', '.jpeg',           // Imagens
+        '.mp4', '.webm', '.mov', '.avi'    // Vídeos
+      ];
       const basePath = `imagens/item${itemNumber}`;
+      
       function tryExtension(index) {
         if (index >= extensions.length) {
           callback(false, null);
           return;
         }
-        const img = new Image();
-        img.onload = function() {
-          callback(true, basePath);
-        };
-        img.onerror = function() {
-          tryExtension(index + 1);
-        };
-        img.src = basePath + extensions[index];
+        
+        const extension = extensions[index];
+        const url = basePath + extension;
+        
+        // Verifica se é vídeo
+        const videoExtensions = ['.mp4', '.webm', '.mov', '.avi'];
+        const isVideo = videoExtensions.includes(extension);
+        
+        if (isVideo) {
+          // Testa vídeo
+          const video = document.createElement('video');
+          video.onloadeddata = function() {
+            callback(true, basePath);
+          };
+          video.onerror = function() {
+            tryExtension(index + 1);
+          };
+          video.src = url;
+        } else {
+          // Testa imagem
+          const img = new Image();
+          img.onload = function() {
+            callback(true, basePath);
+          };
+          img.onerror = function() {
+            tryExtension(index + 1);
+          };
+          img.src = url;
+        }
       }
+      
       tryExtension(0);
     }
 
