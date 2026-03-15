@@ -4188,16 +4188,16 @@ EXPLICAÇÃO: O vídeo mostra uma tomografia computadorizada do abdome com contr
         let questionText = '';
         let answer = null;
         let explanation = '';
-        let hasImage = false;
+        let hasImage = false;  // ✅ Só detecta, mas NÃO adiciona botão
         let isReadingExplanation = false;
         
         lines.forEach(line => {
           line = line.trim();
           
-          // ✅ DETECTA https:// como marcador (descarta a linha)
+          // ✅ DETECTA https:// como marcador
           if (line === 'https://') {
             hasImage = true;
-            return; // ← Pula essa linha, não adiciona no texto
+            return;
           }
           
           if (line.toUpperCase().startsWith('EXPLICAÇÃO:')) {
@@ -4223,16 +4223,12 @@ EXPLICAÇÃO: O vídeo mostra uma tomografia computadorizada do abdome com contr
           }
         });
         
-        // ✅ ADICIONA BOTÃO SE TEM IMAGEM
-        if (hasImage) {
-          questionText = `<span class="image-link" onclick="showImagePreviewAuto('imagens/item${index + 1}')" style="color: #ffcc00; text-decoration: underline; cursor: pointer; margin-bottom: 10px; display: inline-block; font-size: 24px;">🖼️VER IMAGEM</span><br>` + questionText;
-        }
-        
         if (questionText && answer !== null) {
           items.push({
             text: questionText,
             answer: answer,
             explanation: explanation,
+            hasImage: hasImage,  // ✅ Salva a flag
             itemNumber: index + 1
           });
         }
@@ -4514,52 +4510,6 @@ EXPLICAÇÃO: O vídeo mostra uma tomografia computadorizada do abdome com contr
       }
     }
 
-    function checkImageExists(itemNumber, callback) {
-      const extensions = [
-        '.png', '.jpg', '.jpeg',           // Imagens
-        '.mp4', '.webm', '.mov', '.avi'    // Vídeos
-      ];
-      const basePath = `imagens/item${itemNumber}`;
-      
-      function tryExtension(index) {
-        if (index >= extensions.length) {
-          callback(false, null);
-          return;
-        }
-        
-        const extension = extensions[index];
-        const url = basePath + extension;
-        
-        // Verifica se é vídeo
-        const videoExtensions = ['.mp4', '.webm', '.mov', '.avi'];
-        const isVideo = videoExtensions.includes(extension);
-        
-        if (isVideo) {
-          // Testa vídeo
-          const video = document.createElement('video');
-          video.onloadeddata = function() {
-            callback(true, basePath);
-          };
-          video.onerror = function() {
-            tryExtension(index + 1);
-          };
-          video.src = url;
-        } else {
-          // Testa imagem
-          const img = new Image();
-          img.onload = function() {
-            callback(true, basePath);
-          };
-          img.onerror = function() {
-            tryExtension(index + 1);
-          };
-          img.src = url;
-        }
-      }
-      
-      tryExtension(0);
-    }
-
     function initQuiz() {
       questions = parseQuestions(rawQuestionsText);
       if (currentQuestionIndex >= questions.length) {
@@ -4576,24 +4526,28 @@ EXPLICAÇÃO: O vídeo mostra uma tomografia computadorizada do abdome com contr
         currentQuestionIndex = 0;
         saveToCloud();
       }
+      
       currentQuestion = questions[currentQuestionIndex];
       lastAnswerWasWrong = false;
       hasPendingError = false;
-      checkImageExists(currentQuestion.itemNumber, function(exists, path) {
-        const imageContainer = document.getElementById('image-button-container');
-        if (exists) {
-          currentImagePath = path;
-          imageContainer.style.display = 'block';
-        } else {
-          currentImagePath = null;
-          imageContainer.style.display = 'none';
-        }
-      });
+      
+      // ✅ Mostra/esconde o botão baseado na flag hasImage
+      const imageContainer = document.getElementById('image-button-container');
+      if (currentQuestion.hasImage) {
+        currentImagePath = `imagens/item${currentQuestion.itemNumber}`;
+        imageContainer.style.display = 'block';
+      } else {
+        currentImagePath = null;
+        imageContainer.style.display = 'none';
+      }
+      
+      // ✅ Usa textContent (sem HTML no texto)
       document.getElementById('question-text').textContent = currentQuestion.text;
       document.getElementById('question-counter').textContent = `Item: ${currentQuestionIndex + 1}/${questions.length}`;
       document.getElementById('message-box').classList.remove('show');
       document.getElementById('answer-buttons').style.display = 'flex';
       document.getElementById('continue-buttons').style.display = 'none';
+      
       const buttons = document.querySelectorAll('#answer-buttons button');
       buttons.forEach(btn => btn.disabled = false);
     }
