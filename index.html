@@ -4458,6 +4458,9 @@ EXPLICAÇÃO: O vídeo mostra uma tomografia computadorizada do abdome com contr
 
                 // MOSTRA O BOTÃO X (só para vídeo)
                 closeBtn.style.display = 'flex';
+
+                // ✅ ADICIONE ESTA LINHA (bloqueia scroll)
+                document.body.style.overflow = 'hidden';
                 
                 preview.classList.add('active');
               }, remainingTime);
@@ -4493,6 +4496,9 @@ EXPLICAÇÃO: O vídeo mostra uma tomografia computadorizada do abdome com contr
 
                 // ESCONDE O BOTÃO X (não precisa para imagem)
                 closeBtn.style.display = 'none';
+
+                // ✅ ADICIONE ESTA LINHA (bloqueia scroll)
+                document.body.style.overflow = 'hidden';
                 
                 preview.classList.add('active');
               }, remainingTime);
