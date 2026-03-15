@@ -428,6 +428,32 @@
         opacity: 1;
       }
     }
+
+    .close-preview-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 0, 0, 0.8);
+      color: #fff;
+      border: 3px solid #000;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .close-preview-btn:active {
+      background: rgba(255, 50, 50, 1);
+      transform: scale(1.1);
+    }
+
     .image-preview {
       display: none;
       position: fixed;
@@ -548,7 +574,11 @@
     </div>
   </div>
   <div id="image-preview" class="image-preview" onclick="hideImagePreview()">
-    <img id="preview-img" src="" alt="Preview">
+    <button id="close-video-btn" class="close-preview-btn" onclick="event.stopPropagation(); hideImagePreview();" style="display: none;">✕</button>
+    <img id="preview-img" src="" alt="Preview" style="display: none;">
+    <video id="preview-video" autoplay loop playsinline webkit-playsinline style="display: none; width: 100%; height: 100%; object-fit: contain;">
+      Seu navegador não suporta vídeos.
+    </video>
   </div>
   <div class="container">
     <div id="login-screen">
@@ -3228,11 +3258,11 @@ EXPLICAÇÃO: Diferentemente do ligamento colateral medial (LCM) que une a porç
 
 ITEM 326
 
-Como toda a estrutura articular, há uma estrutura responsável por proteger e amortecer o contato direto das superfícies ósseas, de modo a evitar um dano degenerativo precoce, chamada de cartilagem hialina de revestimento condral, sendo observado nos compartimentos femorotibiais medial/lateral e femoropatelar.
+Como em todas articulações, há uma estrutura responsável por proteger e amortecer o contato direto das superfícies ósseas, de modo a evitar um dano degenerativo precoce, chamada de cartilagem hialina de revestimento condral, sendo observado também nos compartimentos femorotibiais medial/lateral e femoropatelar.
 
 GABARITO: VERDADEIRO
 
-EXPLICAÇÃO: Como toda a estrutura articular, há uma estrutura responsável por proteger e amortecer o contato direto das superfícies ósseas, de modo a evitar um dano degenerativo precoce, chamada de cartilagem hialina de revestimento condral, sendo observado nos compartimentos femorotibiais medial/lateral e femoropatelar.
+EXPLICAÇÃO: Como em todas articulações, há uma estrutura responsável por proteger e amortecer o contato direto das superfícies ósseas, de modo a evitar um dano degenerativo precoce, chamada de cartilagem hialina de revestimento condral, sendo observado também nos compartimentos femorotibiais medial/lateral e femoropatelar.
 
 ITEM 327
 
@@ -3604,11 +3634,11 @@ EXPLICAÇÃO: A área assinalada em azul na imagem é uma representação anatô
 
 ITEM 373
 
-A Bursa, metaforicamente falando, é como se fosse uma caixa de graxa, servindo como um lubrificante e impedir o atrito do tendão do músculo supraespinal, durante o seu movimento, contra o osso acrômio e o músculo deltoide.
+A Bursa, metaforicamente falando, é como se fosse uma caixa de graxa, servindo como um lubrificante que impede o atrito, por exemplo, do tendão do músculo supraespinal, durante o seu movimento, contra o osso acrômio e o músculo deltoide, na articulação do ombro.
 
 GABARITO: VERDADEIRO
 
-EXPLICAÇÃO: A Bursa, metaforicamente falando, é como se fosse uma caixa de graxa, servindo como um lubrificante e impedir o atrito do tendão do músculo supraespinal, durante o seu movimento, contra o osso acrômio e o músculo deltoide.
+EXPLICAÇÃO: A Bursa, metaforicamente falando, é como se fosse uma caixa de graxa, servindo como um lubrificante que impede o atrito, por exemplo, do tendão do músculo supraespinal, durante o seu movimento, contra o osso acrômio e o músculo deltoide, na articulação do ombro.
 
 ITEM 374
 
@@ -3793,6 +3823,14 @@ O uso da harmônica com pulso invertido, na ultrassonografia, é muito útil no 
 GABARITO: FALSO
 
 EXPLICAÇÃO: O uso da harmônica com pulso invertido, na ultrassonografia, é muito útil no ultrassom com contraste, onde é possível potencializar a visualização das microbolhas. Isso acontece pois os agentes de contraste (microbolhas) geram fortes sinais harmônicos.
+
+ITEM 397
+
+O vídeo mostra uma tomografia computadorizada do abdome com contraste iodado endovenoso, fase arterial, mostrando o sinal do alvo, no qual admite dois principais diagnósticos diferenciais: estenose hipertrófica do piloro e intussuscepção intestinal.
+
+GABARITO: FALSO
+
+EXPLICAÇÃO: O vídeo mostra uma tomografia computadorizada do abdome com contraste iodado endovenoso, fase arterial, mostrando o sinal do redemoinho, no qual admite dois principais diagnósticos diferenciais: volvo do intestino médio e hérnia interna (hérnia de Petersen).
 
 `;
     let questions = [];
@@ -4279,61 +4317,172 @@ EXPLICAÇÃO: O uso da harmônica com pulso invertido, na ultrassonografia, é m
     }
 
     function hideImagePreview() {
-      document.getElementById('image-preview').classList.remove('active');
+      const preview = document.getElementById('image-preview');
+      const video = document.getElementById('preview-video');
+      const closeBtn = document.getElementById('close-video-btn');
+      
+      preview.classList.remove('active');
+      
+      // Se for vídeo, pausa e reseta
+      if (video.style.display !== 'none') {
+        video.pause();
+        video.currentTime = 0;
+      }
+
+      // Esconde o botão X ao fechar
+      closeBtn.style.display = 'none';
+      
       document.body.style.overflow = 'auto';
     }
 
     function showImagePreviewAuto(basePath) {
-      const extensions = ['.png', '.jpg', '.jpeg'];
+      // Tenta TODAS as extensões possíveis (imagens E vídeos)
+      const extensions = [
+        '.png', '.jpg', '.jpeg', '.gif', '.webp',  // Imagens
+        '.mp4', '.webm', '.mov', '.avi'             // Vídeos
+      ];
+      
       const img = document.getElementById('preview-img');
+      const video = document.getElementById('preview-video');
       const preview = document.getElementById('image-preview');
       const loading = document.getElementById('image-loading');
+      const closeBtn = document.getElementById('close-video-btn');
+      
+      // Mostra a tela de loading imediatamente
       loading.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      
+      // Marca o momento que começou a carregar
       const loadingStartTime = Date.now();
+      
+      // Variável para controlar se já finalizou
       let hasFinished = false;
+      
+      // Timeout de 7 segundos
       const timeoutId = setTimeout(() => {
         if (!hasFinished) {
           hasFinished = true;
+          
+          // Calcula o tempo mínimo
           const elapsed = Date.now() - loadingStartTime;
           const remainingTime = Math.max(0, 300 - elapsed);
+          
           setTimeout(() => {
             loading.classList.remove('active');
-            alert('Erro ao carregar imagem. Pode ser que a sua internet esteja lenta. Tente novamente.');
+            alert('Erro ao carregar mídia. Pode ser que a sua internet esteja lenta. Tente novamente.');
           }, remainingTime);
         }
-      }, 7000);
+      }, 7000); // 7 segundos
+      
       function tryExtension(index) {
         if (index >= extensions.length) {
+          // Não encontrou nenhuma mídia
           clearTimeout(timeoutId);
           if (!hasFinished) {
             hasFinished = true;
+            
             const elapsed = Date.now() - loadingStartTime;
             const remainingTime = Math.max(0, 300 - elapsed);
+            
             setTimeout(() => {
               loading.classList.remove('active');
-              alert('Imagem não encontrada!');
+              alert('Mídia não encontrada!');
             }, remainingTime);
           }
           return;
         }
-        img.src = basePath + extensions[index];
-        img.onerror = function() {
-          tryExtension(index + 1);
-        };
-        img.onload = function() {
-          clearTimeout(timeoutId);
-          if (!hasFinished) {
-            hasFinished = true;
-            const elapsed = Date.now() - loadingStartTime;
-            const remainingTime = Math.max(0, 300 - elapsed);
-            setTimeout(() => {
-              loading.classList.remove('active');
-              preview.classList.add('active');
-            }, remainingTime);
-          }
-        };
+        
+        const extension = extensions[index];
+        const url = basePath + extension;
+        
+        // Verifica se é vídeo ou imagem pela extensão
+        const videoExtensions = ['.mp4', '.webm', '.mov', '.avi'];
+        const isVideo = videoExtensions.includes(extension);
+        
+        if (isVideo) {
+          // Tenta carregar VÍDEO
+          video.src = url;
+          
+          video.onerror = function() {
+            // Falhou, tenta próxima extensão
+            tryExtension(index + 1);
+          };
+          
+          video.onloadeddata = function() {
+            // Força o vídeo a ficar mutado SEMPRE
+            video.muted = true;
+            
+            // Adiciona controle de play/pause ao clicar
+            video.onclick = function(e) {
+              e.stopPropagation(); // Impede de fechar o preview
+              if (video.paused) {
+                video.play();
+              } else {
+                video.pause();
+              }
+            };
+            
+            // SUCESSO! Vídeo carregado
+            clearTimeout(timeoutId);
+            if (!hasFinished) {
+              hasFinished = true;
+              
+              // Calcula quanto tempo já passou
+              const elapsed = Date.now() - loadingStartTime;
+              const remainingTime = Math.max(0, 300 - elapsed);
+              
+              // Aguarda o tempo restante antes de mostrar
+              setTimeout(() => {
+                loading.classList.remove('active');
+                
+                // Esconde imagem, mostra vídeo
+                img.style.display = 'none';
+                video.style.display = 'block';
+
+                // MOSTRA O BOTÃO X (só para vídeo)
+                closeBtn.style.display = 'flex';
+                
+                preview.classList.add('active');
+              }, remainingTime);
+            }
+          };
+          
+        } else {
+          // Tenta carregar IMAGEM
+          img.src = url;
+          
+          img.onerror = function() {
+            // Falhou, tenta próxima extensão
+            tryExtension(index + 1);
+          };
+          
+          img.onload = function() {
+            // SUCESSO! Imagem carregada
+            clearTimeout(timeoutId);
+            if (!hasFinished) {
+              hasFinished = true;
+              
+              // Calcula quanto tempo já passou
+              const elapsed = Date.now() - loadingStartTime;
+              const remainingTime = Math.max(0, 300 - elapsed);
+              
+              // Aguarda o tempo restante antes de mostrar
+              setTimeout(() => {
+                loading.classList.remove('active');
+                
+                // Esconde vídeo, mostra imagem
+                video.style.display = 'none';
+                img.style.display = 'block';
+
+                // ESCONDE O BOTÃO X (não precisa para imagem)
+                closeBtn.style.display = 'none';
+                
+                preview.classList.add('active');
+              }, remainingTime);
+            }
+          };
+        }
       }
+      
       tryExtension(0);
     }
 
